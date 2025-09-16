@@ -3,13 +3,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="col-span-1 md:col-span-2">
-                <div class="flex items-center space-x-3 mb-4">
+                <div class="mb-4">
                     <img
                         src="{{ asset('logo-color.png') }}"
                         alt="Global Synlogia"
-                        class="w-10 h-10 filter brightness-0 invert"
+                        class="h-16 w-auto filter brightness-0 invert"
                     />
-                    <span class="text-xl font-bold text-white">Global Synlogia</span>
                 </div>
                 <p class="text-gray-300 mb-4 max-w-md">
                     Global Synlogia - profesjonalne usługi programistyczne i technologie IT.
