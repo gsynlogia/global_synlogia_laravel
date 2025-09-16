@@ -78,7 +78,7 @@
 
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div class="max-w-3xl text-white ml-8 sm:ml-12 md:ml-16 lg:ml-20 transition-all duration-1000 delay-300 {{ $index === 0 ? 'animate-slide-up' : 'opacity-0' }}">
+                            <div class="max-w-3xl text-white ml-8 sm:ml-12 md:ml-16 lg:ml-20 transition-all duration-1000 delay-300 {{ $index === 0 ? 'animate-slide-up' : 'opacity-0' }}" data-slide-content>
                                 <div class="glass rounded-2xl p-8 backdrop-blur-sm animate-fade-scale">
                                     @if($slide['subtitle'])
                                         <h2 class="text-sm sm:text-base md:text-lg font-bold mb-2 text-white opacity-90">
@@ -329,25 +329,27 @@ class HeroSlider {
     updateSlide(index) {
         // Update slides
         this.slides.forEach((slide, i) => {
-            const content = slide.querySelector('.animate-slide-up');
+            const contentContainer = slide.querySelector('[data-slide-content]');
 
             if (i === index) {
                 slide.classList.remove('opacity-0', 'scale-105', 'inactive');
                 slide.classList.add('opacity-100', 'scale-100', 'active');
                 slide.setAttribute('aria-hidden', 'false');
 
-                if (content) {
-                    content.classList.remove('opacity-0');
-                    content.classList.add('animate-slide-up');
+                if (contentContainer) {
+                    contentContainer.classList.remove('opacity-0');
+                    contentContainer.classList.add('animate-slide-up');
+                    // Force reflow to trigger animation
+                    void contentContainer.offsetHeight;
                 }
             } else {
                 slide.classList.remove('opacity-100', 'scale-100', 'active');
                 slide.classList.add('opacity-0', 'scale-105', 'inactive');
                 slide.setAttribute('aria-hidden', 'true');
 
-                if (content) {
-                    content.classList.add('opacity-0');
-                    content.classList.remove('animate-slide-up');
+                if (contentContainer) {
+                    contentContainer.classList.add('opacity-0');
+                    contentContainer.classList.remove('animate-slide-up');
                 }
             }
         });
