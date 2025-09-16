@@ -1,3 +1,30 @@
+{{-- Services Section Container --}}
+<section id="services" class="py-20 bg-gray-100 relative overflow-hidden">
+    <!-- Animated particles -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="animate-float absolute top-20 left-20 w-4 h-4 bg-[#0056bc] rounded-full"></div>
+        <div class="animate-float absolute top-40 right-32 w-3 h-3 bg-green-400 rounded-full" style="animation-delay: 1s;"></div>
+        <div class="animate-float absolute bottom-32 left-1/3 w-2 h-2 bg-purple-400 rounded-full" style="animation-delay: 2s;"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="text-center mb-16 animate-fade-scale">
+            <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+                Główne Usługi
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Oferujemy kompleksowe rozwiązania IT dostosowane do potrzeb Twojego biznesu
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-grid">
+            <!-- Services will be inserted here by JavaScript -->
+        </div>
+    </div>
+</section>
+
+@push('script_services_section')
+<script>
 class ServicesSection {
     constructor() {
         this.services = [
@@ -103,3 +130,5 @@ class ServicesSection {
 
 // Export for Laravel
 window.ServicesSection = ServicesSection;
+</script>
+@endpush

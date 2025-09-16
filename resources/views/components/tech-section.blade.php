@@ -1,3 +1,23 @@
+{{-- Tech Section Container --}}
+<section id="tech-section" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-fade-scale">
+            <h2 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-6">
+                Technologie
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Specjalizujemy się w najnowszych i najbardziej efektywnych technologiach
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="tech-grid">
+            <!-- Technologies will be inserted here by JavaScript -->
+        </div>
+    </div>
+</section>
+
+@push('script_tech_section')
+<script>
 class TechSection {
     constructor() {
         this.isVisible = false;
@@ -98,3 +118,5 @@ class TechSection {
 
 // Export for Laravel
 window.TechSection = TechSection;
+</script>
+@endpush

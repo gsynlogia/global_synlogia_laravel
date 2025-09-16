@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     const badgeSlider = new BadgeSlider();
@@ -8,4 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const techSection = new TechSection();
     techSection.init();
+
+    const servicesSlider = new ServicesSlider();
+    servicesSlider.init();
 });
