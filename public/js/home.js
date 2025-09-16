@@ -1,6 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
+    const header = new Header();
+    header.init();
     const badgeSlider = new BadgeSlider();
     badgeSlider.init();
 
