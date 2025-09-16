@@ -205,6 +205,33 @@ Projekt wykorzystuje modularną architekturę z wykorzystaniem Laravel Blade:
 ✅ **Animacje** - Intersection Observer i CSS animations
 ✅ **Offline-first** - Wszystkie zasoby lokalne
 
+## Przyda się też
+
+### Cachowanie Laravel (Optymalizacja wydajności)
+
+**Włączenie cache (production):**
+```bash
+php artisan view:cache        # Cache widoków Blade
+php artisan config:cache      # Cache konfiguracji
+php artisan route:cache       # Cache routingu
+php artisan optimize          # Wszystkie cache naraz
+php artisan event:cache       # Cache eventów
+```
+
+**Czyszczenie cache (development):**
+```bash
+php artisan view:clear        # Czyść gdy zmieniasz widoki
+php artisan config:clear      # Czyść gdy zmieniasz config
+php artisan route:clear       # Czyść gdy dodajesz nowe routes
+php artisan optimize:clear    # Czyść wszystkie cache
+```
+
+**Dodatkowe optymalizacje:**
+```bash
+composer install --optimize-autoloader --no-dev  # Optymalizacja autoloadera
+npm run build                                     # Minifikacja JS/CSS
+```
+
 ## Wsparcie
 
 W przypadku problemów lub pytań, skontaktuj się z zespołem Global Synlogia.
