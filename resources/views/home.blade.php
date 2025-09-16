@@ -26,12 +26,16 @@
     @include('components.services-section')
     @include('components.tech-section')
     @include('components.services-slider')
+    @include('components.contact-section')
+    @include('components.footer')
 
     <!-- Component Scripts Stack -->
     @stack('script_badge_slider')
     @stack('script_services_section')
     @stack('script_tech_section')
     @stack('script_services_slider')
+    @stack('script_contact_section')
+    @stack('script_footer')
 
     <!-- Component Scripts -->
     <script src="{{ asset('js/components/LucideIcons.js') }}" defer></script>

@@ -12,4 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const servicesSlider = new ServicesSlider();
     servicesSlider.init();
+
+    const contactSection = new ContactSection();
+    contactSection.init();
+
+    const footer = new Footer();
+    footer.init();
 });
