@@ -1,61 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Global Synlogia Laravel
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/logo-color.png" alt="Global Synlogia Logo" width="300">
 </p>
 
-## About Laravel
+<p align="center">
+  <strong>Kompleksowe rozwiązania IT dla Twojego biznesu</strong>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## O Projekcie
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Global Synlogia Laravel to nowoczesna aplikacja webowa zbudowana w oparciu o framework Laravel z wykorzystaniem Tailwind CSS. Projekt oferuje modularną architekturę komponentów oraz responsywny design zapewniający doskonałe doświadczenie użytkownika.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Główne Funkcjonalności
 
-## Learning Laravel
+- **Modularny system komponentów** - wykorzystanie Laravel Blade z dyrektywami @push/@stack
+- **Responsywny design** - pełna kompatybilność z urządzeniami mobilnymi
+- **Animacje CSS** - płynne przejścia i efekty wizualne
+- **Offline-first** - wszystkie zasoby przechowywane lokalnie
+- **Badge Slider** - animowany slider z technologiami
+- **Sekcja usług** - prezentacja głównych usług firmy
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Technologie
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Backend**: Laravel 11.x
+- **Frontend**: Tailwind CSS 3.4.1
+- **Build Tool**: Vite
+- **Fonty**: Instrument Sans (lokalne)
+- **JavaScript**: Vanilla JS z modularną architekturą
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalacja i Uruchomienie
 
-## Laravel Sponsors
+### Wymagania
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP >= 8.2
+- Composer
+- Node.js >= 18.x
+- npm lub yarn
 
-### Premium Partners
+### Kroki instalacji
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1. **Sklonuj repozytorium**
+   ```bash
+   git clone git@github.com-global:gsynlogia/global_synlogia_laravel.git
+   cd global_synlogia_laravel
+   ```
 
-## Contributing
+2. **Zainstaluj zależności PHP**
+   ```bash
+   composer install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. **Zainstaluj zależności JavaScript**
+   ```bash
+   npm install
+   ```
 
-## Code of Conduct
+4. **Utwórz plik środowiskowy**
+   ```bash
+   cp .env.example .env
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. **Wygeneruj klucz aplikacji**
+   ```bash
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+### Uruchomienie projektu
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. **Uruchom serwer Laravel**
+   ```bash
+   php artisan serve --port=8002
+   ```
 
-## License
+2. **Uruchom Vite (w osobnym terminalu)**
+   ```bash
+   npm run dev
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. **Otwórz przeglądarkę**
+   ```
+   http://localhost:8002
+   ```
+
+### Uruchomienie w trybie produkcyjnym
+
+1. **Zbuduj zasoby dla produkcji**
+   ```bash
+   npm run build
+   ```
+
+2. **Uruchom serwer**
+   ```bash
+   php artisan serve --port=8002
+   ```
+
+## Struktura Projektu
+
+```
+├── resources/views/
+│   ├── components/          # Komponenty Blade
+│   │   ├── info-banner.blade.php
+│   │   ├── navigation.blade.php
+│   │   └── badge-slider.blade.php
+│   └── home.blade.php       # Główny widok
+├── public/
+│   ├── css/                 # Style CSS
+│   ├── js/                  # Pliki JavaScript
+│   ├── fonts/               # Fonty lokalne
+│   └── logo-color.png       # Logo firmy
+├── resources/css/           # Źródła CSS
+└── resources/js/            # Źródła JavaScript
+```
+
+## Architektura Komponentów
+
+Projekt wykorzystuje modularną architekturę z wykorzystaniem Laravel Blade:
+
+- **@push/@stack** - zarządzanie stylami i skryptami komponentów
+- **@include** - włączanie komponentów do głównego widoku
+- **Namespace naming** - unikalne klucze dla każdego komponentu
+
+### Przykład komponentu
+
+```blade
+{{-- Komponent --}}
+<div class="component">
+    <!-- Zawartość komponentu -->
+</div>
+
+@push('style_component_name')
+<style>
+    /* Style komponentu */
+</style>
+@endpush
+
+@push('script_component_name')
+<script>
+    // JavaScript komponentu
+</script>
+@endpush
+```
+
+## Dostępne Komendy
+
+- `php artisan serve` - uruchomienie serwera deweloperskiego
+- `npm run dev` - uruchomienie Vite w trybie deweloperskim
+- `npm run build` - budowanie zasobów dla produkcji
+- `composer install` - instalacja zależności PHP
+- `npm install` - instalacja zależności JavaScript
+
+## Wsparcie
+
+W przypadku problemów lub pytań, skontaktuj się z zespołem Global Synlogia.
+
+---
+
+<p align="center">
+  Zbudowane z ❤️ przez <strong>Global Synlogia</strong>
+</p>
