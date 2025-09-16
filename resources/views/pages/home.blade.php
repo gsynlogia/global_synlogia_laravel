@@ -3,6 +3,7 @@
 @section('title', 'Global Synlogia - Kompleksowe rozwiązania IT')
 
 @push('styles')
+    @stack('style_hero_slider')
     @stack('style_badge_slider')
     @stack('style_services_section')
     @stack('style_tech_section')
@@ -11,6 +12,9 @@
 @endpush
 
 @section('content')
+    {{-- Hero Slider Section --}}
+    @include('components.hero-slider')
+
     {{-- Badge Slider Section --}}
     @include('components.badge-slider')
 
@@ -28,6 +32,7 @@
 @endsection
 
 @push('scripts')
+    @stack('script_hero_slider')
     @stack('script_badge_slider')
     @stack('script_services_section')
     @stack('script_tech_section')
