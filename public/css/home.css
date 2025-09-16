@@ -1,0 +1,111 @@
+/* Navigation hover effects */
+.hover-nav-item {
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.hover-nav-item:hover {
+    color: #de244b !important;
+}
+
+.hover-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: #de244b;
+    transition: width 0.3s ease-out;
+}
+
+.hover-nav-item:hover::after {
+    width: 100%;
+}
+
+.active-nav-item {
+    color: #de244b !important;
+    position: relative;
+}
+
+.active-nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: #de244b;
+    animation: expandFromCenter 0.3s ease-out forwards;
+}
+
+@keyframes expandFromCenter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Mobile menu button hover */
+.mobile-menu-btn {
+    transition: all 0.3s ease;
+}
+
+/* Backdrop blur for header */
+.header-backdrop {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* slideInUp animation for services and tech cards */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+/* Glass effect */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Glow animation */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(0, 86, 188, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 86, 188, 0.5);
+    }
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
