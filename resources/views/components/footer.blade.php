@@ -7,7 +7,7 @@
                     <img
                         src="{{ asset('logo-color.png') }}"
                         alt="Global Synlogia"
-                        class="h-16 w-auto filter brightness-0 invert"
+                        class="h-24 w-auto filter brightness-0 invert"
                     />
                 </div>
                 <p class="text-gray-300 mb-4 max-w-md">
