@@ -1,311 +1,274 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Panel Administracyjny - Global Synlogia')
+@section('page-title', 'Dashboard')
+@section('page-description', 'Przegląd systemu i statystyki')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <!-- Header -->
-        <div class="mb-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold text-[#124f9e]">Panel Administracyjny</h1>
-                    <p class="text-gray-600 mt-2">Zarządzanie systemem Global Synlogia</p>
+<!-- Stats Overview -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Total Users -->
+    <div class="stat-card p-6 rounded-xl border border-gray-100 card-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm font-medium">Wszyscy użytkownicy</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::count() }}</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-green-600 text-sm font-medium">
+                        +{{ \App\Models\User::where('created_at', '>=', now()->subDays(30))->count() }}
+                    </span>
+                    <span class="text-gray-500 text-xs ml-1">w tym miesiącu</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <div class="flex items-center px-3 py-2 bg-[#de244b] text-white rounded-lg text-sm">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
-                        Superuser
-                    </div>
-                </div>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                </svg>
             </div>
         </div>
+    </div>
 
-        <!-- Stats Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
-                <div class="p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-[#124f9e] rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-2xl font-bold text-[#124f9e]">{{ \App\Models\User::count() }}</div>
-                            <div class="text-sm text-gray-600">Użytkownicy</div>
-                        </div>
-                    </div>
+    <!-- Active Users -->
+    <div class="stat-card p-6 rounded-xl border border-gray-100 card-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm font-medium">Aktywni użytkownicy</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::active()->count() }}</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-green-600 text-sm font-medium">
+                        {{ round((\App\Models\User::active()->count() / max(\App\Models\User::count(), 1)) * 100, 1) }}%
+                    </span>
+                    <span class="text-gray-500 text-xs ml-1">wszystkich</span>
                 </div>
             </div>
-
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
-                <div class="p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-[#de244b] rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-2xl font-bold text-[#de244b]">{{ count(\App\Models\User::getSuperuserEmails()) }}</div>
-                            <div class="text-sm text-gray-600">Superuserzy</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
-                <div class="p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-2xl font-bold text-orange-500">{{ \App\Models\Role::count() }}</div>
-                            <div class="text-sm text-gray-600">Role</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
-                <div class="p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-2xl font-bold text-green-500">{{ \App\Models\Permission::count() }}</div>
-                            <div class="text-sm text-gray-600">Uprawnienia</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow-lg rounded-lg">
-                <div class="p-6">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18 21l-2.25-2.25m0 0L21 12l-9-9-9 9 6.75 6.75"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-2xl font-bold text-purple-500">{{ \App\Models\User::blocked()->count() }}</div>
-                            <div class="text-sm text-gray-600">Zablokowani</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
             </div>
         </div>
+    </div>
 
-        <!-- Superusers List -->
-        <div class="bg-white shadow-lg rounded-lg mb-8">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-[#124f9e]">Superuserzy (zahardkodowani w .env)</h3>
-                <p class="text-sm text-gray-600 mt-1">Ci użytkownicy mają zawsze uprawnienia administratora</p>
-            </div>
-            <div class="p-6">
-                <div class="space-y-3">
-                    @foreach(\App\Models\User::getSuperuserEmails() as $email)
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 bg-[#de244b] rounded-full flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                    </svg>
-                                </div>
-                                <div class="ml-3">
-                                    <div class="text-sm font-medium text-gray-900">{{ $email }}</div>
-                                    @php $user = \App\Models\User::where('email', $email)->first(); @endphp
-                                    @if($user)
-                                        <div class="text-xs text-green-600">Zarejestrowany jako: {{ $user->name }}</div>
-                                    @else
-                                        <div class="text-xs text-gray-500">Nie zarejestrowany w systemie</div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#de244b] text-white">
-                                    Superuser
-                                </span>
-                                @if($user && $user->email === auth()->user()->email)
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#124f9e] text-white">
-                                        To Ty
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                    @endforeach
+    <!-- Roles -->
+    <div class="stat-card p-6 rounded-xl border border-gray-100 card-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm font-medium">Role systemowe</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\Role::count() }}</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-blue-600 text-sm font-medium">
+                        {{ \App\Models\Role::active()->count() }}
+                    </span>
+                    <span class="text-gray-500 text-xs ml-1">aktywnych</span>
                 </div>
             </div>
-        </div>
-
-        <!-- ACL Management -->
-        <div class="bg-white shadow-lg rounded-lg">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-[#124f9e]">Zarządzanie systemem ACL</h3>
-                <p class="text-sm text-gray-600 mt-1">Kompletne zarządzanie użytkownikami, rolami i uprawnieniami</p>
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
             </div>
-            <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Users Management -->
-                    <a href="{{ route('admin.users.index') }}" class="admin-card group p-4 bg-[#124f9e] text-white rounded-lg hover:bg-[#0f3f85] transition-all duration-300">
-                        <div class="flex items-center justify-between mb-3">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        </div>
+    </div>
+
+    <!-- Permissions -->
+    <div class="stat-card p-6 rounded-xl border border-gray-100 card-hover">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm font-medium">Uprawnienia</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\Permission::count() }}</p>
+                <div class="flex items-center mt-2">
+                    <span class="text-orange-600 text-sm font-medium">
+                        {{ \App\Models\Permission::distinct('group')->count('group') }}
+                    </span>
+                    <span class="text-gray-500 text-xs ml-1">grup</span>
+                </div>
+            </div>
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Management Cards -->
+    <div class="lg:col-span-2">
+        <div class="bg-white rounded-xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-6">Zarządzanie systemem</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Users -->
+                <a href="{{ route('admin.users.index') }}" class="group p-4 rounded-lg border border-gray-200 hover:border-[#124f9e] transition-all duration-300 card-hover">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-[#124f9e]/10 rounded-lg flex items-center justify-center group-hover:bg-[#124f9e]/20 transition-colors">
+                            <svg class="w-5 h-5 text-[#124f9e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
                             </svg>
-                            <span class="text-2xl font-bold">{{ \App\Models\User::count() }}</span>
                         </div>
-                        <h4 class="text-sm font-medium mb-1">Zarządzanie użytkownikami</h4>
-                        <p class="text-xs opacity-80">Tworzenie, edycja, blokowanie i usuwanie użytkowników</p>
-                        <div class="mt-3 flex items-center text-xs">
-                            <span>Przejdź do modułu</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </a>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-[#124f9e] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1">Użytkownicy</h4>
+                    <p class="text-sm text-gray-600">Zarządzaj kontami użytkowników, blokuj i przypisuj role</p>
+                </a>
 
-                    <!-- Roles Management -->
-                    <a href="{{ route('admin.roles.index') }}" class="admin-card group p-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all duration-300">
-                        <div class="flex items-center justify-between mb-3">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Roles -->
+                <a href="{{ route('admin.roles.index') }}" class="group p-4 rounded-lg border border-gray-200 hover:border-[#de244b] transition-all duration-300 card-hover">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-[#de244b]/10 rounded-lg flex items-center justify-center group-hover:bg-[#de244b]/20 transition-colors">
+                            <svg class="w-5 h-5 text-[#de244b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
-                            <span class="text-2xl font-bold">{{ \App\Models\Role::count() }}</span>
                         </div>
-                        <h4 class="text-sm font-medium mb-1">Zarządzanie rolami</h4>
-                        <p class="text-xs opacity-80">Tworzenie i edycja ról oraz przypisywanie uprawnień</p>
-                        <div class="mt-3 flex items-center text-xs">
-                            <span>Przejdź do modułu</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </a>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-[#de244b] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1">Role</h4>
+                    <p class="text-sm text-gray-600">Twórz i edytuj role, przypisuj uprawnienia</p>
+                </a>
 
-                    <!-- Permissions Management -->
-                    <a href="{{ route('admin.permissions.index') }}" class="admin-card group p-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all duration-300">
-                        <div class="flex items-center justify-between mb-3">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Permissions -->
+                <a href="{{ route('admin.permissions.index') }}" class="group p-4 rounded-lg border border-gray-200 hover:border-green-500 transition-all duration-300 card-hover">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                             </svg>
-                            <span class="text-2xl font-bold">{{ \App\Models\Permission::count() }}</span>
                         </div>
-                        <h4 class="text-sm font-medium mb-1">Zarządzanie uprawnieniami</h4>
-                        <p class="text-xs opacity-80">Tworzenie i edycja uprawnień systemowych</p>
-                        <div class="mt-3 flex items-center text-xs">
-                            <span>Przejdź do modułu</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </a>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-green-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-1">Uprawnienia</h4>
+                    <p class="text-sm text-gray-600">Konfiguruj uprawnienia systemowe</p>
+                </a>
 
-                    <!-- Trash Management -->
-                    <a href="{{ route('admin.users.trash') }}" class="admin-card group p-4 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-all duration-300">
-                        <div class="flex items-center justify-between mb-3">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Trash -->
+                <a href="{{ route('admin.users.trash') }}" class="group p-4 rounded-lg border border-gray-200 hover:border-purple-500 transition-all duration-300 card-hover">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+                            <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                             </svg>
-                            <span class="text-2xl font-bold">{{ \App\Models\User::onlyTrashed()->count() }}</span>
                         </div>
-                        <h4 class="text-sm font-medium mb-1">Kosz (soft delete)</h4>
-                        <p class="text-xs opacity-80">Przywracanie i trwałe usuwanie elementów</p>
-                        <div class="mt-3 flex items-center text-xs">
-                            <span>Przejdź do modułu</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Quick Stats -->
-                <div class="mt-6 pt-6 border-t border-gray-200">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div>
-                            <div class="text-2xl font-bold text-[#124f9e]">{{ \App\Models\User::active()->count() }}</div>
-                            <div class="text-xs text-gray-600">Aktywni użytkownicy</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-[#de244b]">{{ \App\Models\User::admins()->count() }}</div>
-                            <div class="text-xs text-gray-600">Administratorzy</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-orange-500">{{ \App\Models\Role::active()->count() }}</div>
-                            <div class="text-xs text-gray-600">Aktywne role</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-bold text-purple-500">{{ \App\Models\User::blocked()->count() }}</div>
-                            <div class="text-xs text-gray-600">Zablokowani</div>
-                        </div>
+                        <svg class="w-4 h-4 text-gray-400 group-hover:text-purple-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
                     </div>
-                </div>
+                    <h4 class="font-semibold text-gray-900 mb-1">Kosz</h4>
+                    <p class="text-sm text-gray-600">Przywracaj usunięte elementy</p>
+                </a>
             </div>
         </div>
+    </div>
 
+    <!-- System Status -->
+    <div>
+        <div class="bg-white rounded-xl border border-gray-100 p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-6">Status systemu</h3>
+
+            <!-- System Health -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Status ACL</span>
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        Aktywny
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Użytkownicy zablokowany</span>
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ \App\Models\User::blocked()->count() > 0 ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800' }}">
+                        {{ \App\Models\User::blocked()->count() }}
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Elementy w koszu</span>
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ \App\Models\User::onlyTrashed()->count() > 0 ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-800' }}">
+                        {{ \App\Models\User::onlyTrashed()->count() }}
+                    </span>
+                </div>
+
+                @if(auth()->user()->isSuperuser())
+                <div class="pt-4 border-t border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-red-500 rounded-full mr-2"></div>
+                        <span class="text-sm font-medium text-red-600">Super Administrator</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Pełne uprawnienia systemowe</p>
+                </div>
+                @elseif(auth()->user()->isAdmin())
+                <div class="pt-4 border-t border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                        <span class="text-sm font-medium text-blue-600">Administrator</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Uprawnienia administracyjne</p>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="bg-white rounded-xl border border-gray-100 p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-lg font-bold text-gray-900">Ostatnia aktywność</h3>
+        <a href="{{ route('admin.users.index') }}" class="text-sm text-[#124f9e] hover:text-[#0f3f85] font-medium">
+            Zobacz wszystko →
+        </a>
+    </div>
+
+    <div class="space-y-4">
+        @foreach(\App\Models\User::latest()->limit(5)->get() as $user)
+        <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                </svg>
+            </div>
+            <div class="flex-1">
+                <p class="text-sm font-medium text-gray-900">{{ $user->name }}</p>
+                <p class="text-xs text-gray-500">{{ $user->email }} • {{ $user->created_at->diffForHumans() }}</p>
+            </div>
+            <div class="flex items-center space-x-2">
+                @if($user->isSuperuser())
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        Superuser
+                    </span>
+                @elseif($user->isAdmin())
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        Admin
+                    </span>
+                @else
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                        User
+                    </span>
+                @endif
+
+                @if($user->isBlocked())
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        Blocked
+                    </span>
+                @endif
+            </div>
+        </div>
+        @endforeach
+
+        @if(\App\Models\User::count() === 0)
+        <div class="text-center py-8 text-gray-500">
+            <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+            </svg>
+            <p class="text-sm">Brak użytkowników w systemie</p>
+        </div>
+        @endif
     </div>
 </div>
 @endsection
-
-@push('styles')
-<style>
-.admin-card {
-    transition: all 0.3s ease;
-}
-
-.admin-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-.fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-    opacity: 0;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-.fade-in:nth-child(1) { animation-delay: 0.1s; }
-.fade-in:nth-child(2) { animation-delay: 0.2s; }
-.fade-in:nth-child(3) { animation-delay: 0.3s; }
-.fade-in:nth-child(4) { animation-delay: 0.4s; }
-</style>
-@endpush
-
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Add fade-in animation to cards
-    const cards = document.querySelectorAll('.bg-white');
-    cards.forEach((card, index) => {
-        card.classList.add('fade-in');
-        card.style.animationDelay = `${index * 0.1}s`;
-    });
-});
-</script>
-@endpush

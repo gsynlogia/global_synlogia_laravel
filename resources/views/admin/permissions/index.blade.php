@@ -1,28 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Zarządzanie Uprawnieniami - Global Synlogia')
+@section('page-title', 'Zarządzanie Uprawnieniami')
+@section('page-description', 'Tworzenie i zarządzanie uprawnieniami systemowymi')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- Header -->
-        <div class="mb-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold text-[#124f9e]">Zarządzanie Uprawnieniami</h1>
-                    <p class="text-gray-600 mt-2">Tworzenie i zarządzanie uprawnieniami systemowymi</p>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('admin.permissions.create') }}" class="bg-[#124f9e] text-white px-4 py-2 rounded-lg hover:bg-[#0f3f85] transition-colors">
-                        <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                        </svg>
-                        Dodaj Uprawnienie
-                    </a>
-                </div>
-            </div>
+<!-- Quick Actions -->
+<div class="mb-6">
+    <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <a href="{{ route('admin.permissions.create') }}" class="admin-button text-white px-4 py-2 rounded-lg transition-all">
+                <svg class="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Dodaj Uprawnienie
+            </a>
         </div>
+        <div>
+            <button onclick="openCrudModal()" class="px-4 py-2 text-sm bg-green-100 text-green-800 rounded-lg hover:bg-green-200 transition-colors">
+                Generuj CRUD
+            </button>
+        </div>
+    </div>
+</div>
 
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">

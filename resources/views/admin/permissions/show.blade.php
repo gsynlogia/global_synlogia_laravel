@@ -1,10 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', $permission->display_name . ' - Szczegóły Uprawnienia - Global Synlogia')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- Breadcrumb -->
         <nav class="flex mb-8" aria-label="Breadcrumb">
