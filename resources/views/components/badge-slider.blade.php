@@ -1,52 +1,6 @@
 {{-- Badge Slider Container --}}
 <div id="badge-slider-container"></div>
 
-@push('style_badge_slider')
-<style>
-    /* Badge Slider Animations */
-    @keyframes scrollLeft {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(-100%);
-        }
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-20px);
-        }
-    }
-
-    .animate-float {
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .animate-scroll-left {
-        animation: scrollLeft 45s linear infinite;
-    }
-
-    /* fadeInScale animation for cards */
-    @keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    .animate-fade-scale {
-        animation: fadeInScale 0.6s ease-out forwards;
-    }
-</style>
-@endpush
 
 @push('script_badge_slider')
 <script>
@@ -118,13 +72,14 @@ class BadgeSlider {
         // Duplicate badges for seamless scrolling
         const duplicatedBadges = [...this.technologies, ...this.technologies];
 
+        const techCount = this.technologies.length;
         let html = `
             <section id="badge-slider" class="py-8 bg-white overflow-hidden relative">
                 <div class="absolute inset-0 opacity-10" id="floating-particles"></div>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="relative">
                         <div class="flex overflow-hidden">
-                            <div class="flex animate-scroll-left" style="width: calc(200px * 22); animation: scrollLeft 45s linear infinite">
+                            <div class="flex animate-scroll-left" style="width: calc(200px * ${techCount}); animation: scrollLeft 45s linear infinite">
         `;
 
         // Reverse the badges like in front
@@ -132,7 +87,7 @@ class BadgeSlider {
             html += `
                 <a href="#"
                    class="flex-shrink-0 mx-4 bg-white border-2 border-[#0056bc] rounded-2xl p-6 min-w-[180px] group hover:scale-110 hover:bg-gray-50 hover:border-[#de244b] transition-all duration-300 shadow-lg cursor-pointer block opacity-0 tech-card"
-                   style="animation-delay: ${(index % 22) * 0.05}s">
+                   style="animation-delay: ${(index % techCount) * 0.05}s">
                     <div class="text-center">
                         <div class="mb-3 group-hover:animate-bounce">
                             ${this.getIcon(tech.icon)}
