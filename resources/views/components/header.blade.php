@@ -24,7 +24,7 @@
             <div class="flex items-center h-16 justify-between md:justify-start">
                 <!-- Logo -->
                 <div class="flex-shrink-0 md:mr-8">
-                    <a class="flex items-center cursor-pointer" href="#">
+                    <a class="flex items-center cursor-pointer" href="/">
                         <img alt="Global Synlogia" title="Global Synlogia"
                              class="w-auto"
                              style="height:121px;position:relative;z-index:10"
@@ -35,18 +35,18 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex flex-1">
                     <div class="flex-1 flex items-center justify-evenly">
-                        <a class="cursor-pointer font-bold uppercase text-[#de244b] active-nav-item px-3 py-2 text-sm font-bold"
-                           style="animation-delay:0s" href="#">Strona główna</a>
-                        <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
-                           style="animation-delay:0.1s" href="#services">Usługi</a>
-                        <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
-                           style="animation-delay:0.2s" href="#">Blog</a>
+                        <a class="cursor-pointer uppercase px-3 py-2 text-sm font-bold {{ request()->is('/') ? 'text-[#de244b] active-nav-item' : 'text-gray-800 hover:text-[#de244b] hover-nav-item' }}"
+                           style="animation-delay:0s" href="/">Strona główna</a>
+                        <a class="cursor-pointer uppercase px-3 py-2 text-sm font-bold {{ request()->is('uslugi') ? 'text-[#de244b] active-nav-item' : 'text-gray-800 hover:text-[#de244b] hover-nav-item' }}"
+                           style="animation-delay:0.1s" href="/uslugi">Usługi</a>
+                        <a class="cursor-pointer uppercase px-3 py-2 text-sm font-bold {{ request()->is('blog') ? 'text-[#de244b] active-nav-item' : 'text-gray-800 hover:text-[#de244b] hover-nav-item' }}"
+                           style="animation-delay:0.2s" href="/blog">Blog</a>
                         <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
                            style="animation-delay:0.3s" href="#">Szkolenia</a>
-                        <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
-                           style="animation-delay:0.4s" href="#">O firmie</a>
-                        <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
-                           style="animation-delay:0.5s" href="#contact">Kontakt</a>
+                        <a class="cursor-pointer uppercase px-3 py-2 text-sm font-bold {{ request()->is('o-firmie') ? 'text-[#de244b] active-nav-item' : 'text-gray-800 hover:text-[#de244b] hover-nav-item' }}"
+                           style="animation-delay:0.4s" href="/o-firmie">O firmie</a>
+                        <a class="cursor-pointer uppercase px-3 py-2 text-sm font-bold {{ request()->is('kontakt') ? 'text-[#de244b] active-nav-item' : 'text-gray-800 hover:text-[#de244b] hover-nav-item' }}"
+                           style="animation-delay:0.5s" href="/kontakt">Kontakt</a>
                     </div>
                 </nav>
 
@@ -70,12 +70,12 @@
         <!-- Mobile menu -->
         <div id="mobile-menu" class="md:hidden hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-                <a href="#" class="text-[#de244b] block px-3 py-2 text-base font-medium">Strona główna</a>
-                <a href="#services" class="text-gray-800 hover:text-[#de244b] block px-3 py-2 text-base font-medium">Usługi</a>
-                <a href="#" class="text-gray-800 hover:text-[#de244b] block px-3 py-2 text-base font-medium">Blog</a>
+                <a href="/" class="{{ request()->is('/') ? 'text-[#de244b]' : 'text-gray-800 hover:text-[#de244b]' }} block px-3 py-2 text-base font-medium">Strona główna</a>
+                <a href="/uslugi" class="{{ request()->is('uslugi') ? 'text-[#de244b]' : 'text-gray-800 hover:text-[#de244b]' }} block px-3 py-2 text-base font-medium">Usługi</a>
+                <a href="/blog" class="{{ request()->is('blog') ? 'text-[#de244b]' : 'text-gray-800 hover:text-[#de244b]' }} block px-3 py-2 text-base font-medium">Blog</a>
                 <a href="#" class="text-gray-800 hover:text-[#de244b] block px-3 py-2 text-base font-medium">Szkolenia</a>
-                <a href="#" class="text-gray-800 hover:text-[#de244b] block px-3 py-2 text-base font-medium">O firmie</a>
-                <a href="#contact" class="text-gray-800 hover:text-[#de244b] block px-3 py-2 text-base font-medium">Kontakt</a>
+                <a href="/o-firmie" class="{{ request()->is('o-firmie') ? 'text-[#de244b]' : 'text-gray-800 hover:text-[#de244b]' }} block px-3 py-2 text-base font-medium">O firmie</a>
+                <a href="/kontakt" class="{{ request()->is('kontakt') ? 'text-[#de244b]' : 'text-gray-800 hover:text-[#de244b]' }} block px-3 py-2 text-base font-medium">Kontakt</a>
             </div>
         </div>
     </header>
