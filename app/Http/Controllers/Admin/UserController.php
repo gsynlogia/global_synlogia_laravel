@@ -289,7 +289,7 @@ class UserController extends Controller
     public function block(Request $request, User $user)
     {
         if (!$user->canBeBlockedBy(auth()->user())) {
-            return redirect()->route('admin.users.index')
+            return redirect()->back()
                 ->with('error', 'Nie masz uprawnień do zablokowania tego użytkownika.');
         }
 
@@ -299,7 +299,7 @@ class UserController extends Controller
 
         $user->block($request->reason, auth()->user());
 
-        return redirect()->route('admin.users.index')
+        return redirect()->back()
             ->with('success', 'Użytkownik został zablokowany.');
     }
 
@@ -309,13 +309,13 @@ class UserController extends Controller
     public function unblock(User $user)
     {
         if (!$user->canBeBlockedBy(auth()->user())) {
-            return redirect()->route('admin.users.index')
+            return redirect()->back()
                 ->with('error', 'Nie masz uprawnień do odblokowania tego użytkownika.');
         }
 
-        $user->unblock();
+        $user->unblock(auth()->user());
 
-        return redirect()->route('admin.users.index')
+        return redirect()->back()
             ->with('success', 'Użytkownik został odblokowany.');
     }
 
@@ -416,7 +416,11 @@ class UserController extends Controller
      */
     public function toggleStatus(User $user)
     {
+        // Simple debug - force write to file
+        file_put_contents(storage_path('logs/debug.txt'), "toggleStatus called for user: " . $user->id . " at " . now() . "\n", FILE_APPEND);
+
         if (!$user->canBeBlockedBy(auth()->user())) {
+            file_put_contents(storage_path('logs/debug.txt'), "Permission denied!\n", FILE_APPEND);
             return redirect()->back()
                 ->with('error', 'Nie masz uprawnień do zmiany statusu tego użytkownika.');
         }
@@ -463,6 +467,7 @@ class UserController extends Controller
             $message = 'Użytkownik został odblokowany.';
         }
 
+        \Log::info('toggleStatus completed successfully: ' . $message);
         return redirect()->back()->with('success', $message);
     }
 
@@ -497,14 +502,31 @@ class UserController extends Controller
         $filter = $request->get('filter', 'all');
         $sort = $request->get('sort', 'desc');
 
-        $query = $user->notes()->with('createdBy');
+        // Build subquery with all needed data and proper aliasing
+        $subquery = \DB::table('user_notes')
+            ->select([
+                'user_notes.id',
+                'user_notes.type',
+                'user_notes.title',
+                'user_notes.content',
+                'user_notes.metadata',
+                'user_notes.created_at',
+                'user_notes.created_by',
+                'users.name as created_by_name'
+            ])
+            ->leftJoin('users', 'user_notes.created_by', '=', 'users.id')
+            ->where('user_notes.user_id', $user->id);
 
-        // Apply filter
+        // Apply filter in subquery
         if ($filter !== 'all') {
-            $query->where('type', $filter);
+            $subquery->where('user_notes.type', $filter);
         }
 
-        // Apply sort - Laravel handles this at SQL level
+        // Main query with proper sorting on subquery result
+        $query = \DB::table(\DB::raw("({$subquery->toSql()}) as history_data"))
+            ->mergeBindings($subquery);
+
+        // Apply sort - SQL level sorting is reliable
         if ($sort === 'asc') {
             $query->orderBy('created_at', 'asc')->orderBy('id', 'asc');
         } else {
@@ -513,10 +535,12 @@ class UserController extends Controller
 
         $notes = $query->get();
 
-        // Return raw data - let frontend handle sorting and HTML generation
+        // Transform data with pre-aliased columns
         $data = $notes->map(function($note) {
+            // Parse metadata
+            $metadata = json_decode($note->metadata, true) ?? [];
+
             // Format metadata dates
-            $metadata = $note->metadata ?? [];
             if (isset($metadata['created_at'])) {
                 $metadata['created_at'] = \Carbon\Carbon::parse($metadata['created_at'])->format('Y-m-d H:i:s');
             }
@@ -524,21 +548,24 @@ class UserController extends Controller
                 $metadata['login_time'] = \Carbon\Carbon::parse($metadata['login_time'])->format('Y-m-d H:i:s');
             }
 
+            // Get type attributes using UserNote model static methods
+            $userNote = new \App\Models\UserNote(['type' => $note->type]);
+
             return [
                 'id' => $note->id,
                 'type' => $note->type,
                 'title' => $note->title,
                 'content' => $note->content,
-                'created_at' => $note->created_at->toISOString(),
-                'created_at_formatted' => $note->created_at->format('Y-m-d H:i:s'),
+                'created_at' => \Carbon\Carbon::parse($note->created_at)->toISOString(),
+                'created_at_formatted' => \Carbon\Carbon::parse($note->created_at)->format('Y-m-d H:i:s'),
                 'metadata' => $metadata,
-                'created_by' => $note->createdBy ? [
-                    'id' => $note->createdBy->id,
-                    'name' => $note->createdBy->name
+                'created_by' => $note->created_by_name ? [
+                    'id' => $note->created_by,
+                    'name' => $note->created_by_name
                 ] : null,
-                'type_color' => $note->type_color,
-                'type_icon' => $note->type_icon,
-                'type_name' => $note->type_name
+                'type_color' => $userNote->type_color,
+                'type_icon' => $userNote->type_icon,
+                'type_name' => $userNote->type_name
             ];
         });
 

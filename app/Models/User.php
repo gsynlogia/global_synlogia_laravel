@@ -205,7 +205,7 @@ class User extends Authenticatable
         }
 
         return Permission::whereHas('roles', function ($q) {
-            $q->whereIn('role_id', $this->roles()->pluck('id'));
+            $q->whereIn('role_id', $this->roles()->pluck('roles.id'));
         })->active()->get();
     }
 
@@ -306,12 +306,28 @@ class User extends Authenticatable
             'blocked_by' => $blockedBy?->id,
             'block_reason' => $reason,
         ]);
+
+        // Add note to history
+        $this->addNote(
+            'block',
+            'Użytkownik został zablokowany',
+            'Status użytkownika zmieniony z aktywny na zablokowany przez administratora.' .
+            ($reason ? ' Powód: ' . $reason : ''),
+            [
+                'ip' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'previous_status' => 'active',
+                'new_status' => 'blocked',
+                'block_reason' => $reason
+            ],
+            $blockedBy
+        );
     }
 
     /**
      * Unblock user
      */
-    public function unblock(): void
+    public function unblock(?User $unblockedBy = null): void
     {
         $this->update([
             'is_blocked' => false,
@@ -319,6 +335,20 @@ class User extends Authenticatable
             'blocked_by' => null,
             'block_reason' => null,
         ]);
+
+        // Add note to history
+        $this->addNote(
+            'unblock',
+            'Użytkownik został odblokowany',
+            'Status użytkownika zmieniony z zablokowany na aktywny przez administratora.',
+            [
+                'ip' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'previous_status' => 'blocked',
+                'new_status' => 'active'
+            ],
+            $unblockedBy ?: auth()->user()
+        );
     }
 
     // === DELETION METHODS ===

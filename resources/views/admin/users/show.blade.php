@@ -78,7 +78,7 @@
                         <h1 class="text-2xl font-bold text-gray-900">{{ $user->name }}</h1>
                         <p class="text-gray-600">{{ $user->email }}</p>
                         <div class="mt-2">
-                            @if($user->is_active)
+                            @if(!$user->isBlocked())
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     Aktywny
                                 </span>
@@ -216,7 +216,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <span class="text-sm font-medium text-gray-500">Status</span>
-                    @if($user->is_active)
+                    @if(!$user->isBlocked())
                         <span class="text-sm font-bold text-green-600">Aktywny</span>
                     @else
                         <span class="text-sm font-bold text-red-600">Nieaktywny</span>
@@ -235,26 +235,23 @@
                     Edytuj użytkownika
                 </a>
 
-                @if($user->is_active)
-                    <form id="toggle-status-form" method="POST" action="{{ route('admin.users.toggle-status', $user) }}" class="w-full">
-                        @csrf
-                        @method('PATCH')
-                        <button type="button"
-                                onclick="showToggleStatusModal('{{ $user->name }}', 'block')"
+                @if(!$user->isBlocked())
+                    @if($user->canBeBlockedBy(auth()->user()))
+                        <button onclick="openBlockModal('{{ $user->id }}', '{{ $user->name }}')"
                                 class="w-full px-4 py-2 text-center border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors block">
                             Zablokuj użytkownika
                         </button>
-                    </form>
+                    @endif
                 @else
-                    <form id="toggle-status-form" method="POST" action="{{ route('admin.users.toggle-status', $user) }}" class="w-full">
-                        @csrf
-                        @method('PATCH')
-                        <button type="button"
-                                onclick="showToggleStatusModal('{{ $user->name }}', 'unblock')"
-                                class="w-full px-4 py-2 text-center border border-green-600 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors block">
-                            Odblokuj użytkownika
-                        </button>
-                    </form>
+                    @if($user->canBeBlockedBy(auth()->user()))
+                        <form method="POST" action="{{ route('admin.users.unblock', $user) }}" class="w-full">
+                            @csrf
+                            <button type="submit"
+                                    class="w-full px-4 py-2 text-center border border-green-600 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors block">
+                                Odblokuj użytkownika
+                            </button>
+                        </form>
+                    @endif
                 @endif
 
                 <a href="{{ route('admin.users.index') }}" class="w-full px-4 py-2 text-center border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors block">
@@ -282,21 +279,48 @@
     </div>
 </div>
 
+<!-- Block User Modal -->
+<div id="blockModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden" style="z-index: 1000;">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Zablokuj użytkownika</h3>
+            <form id="blockForm" method="POST">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Powód blokady:</label>
+                    <textarea name="reason" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#124f9e] focus:border-[#124f9e]" rows="3" placeholder="Podaj powód blokady użytkownika..."></textarea>
+                </div>
+                <div class="flex items-center justify-end space-x-3">
+                    <button type="button" onclick="closeBlockModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
+                        Anuluj
+                    </button>
+                    <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+                        Zablokuj użytkownika
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @push('scripts')
 <script>
-function showToggleStatusModal(userName, action) {
-    const isBlocking = action === 'block';
-    const title = isBlocking ? 'Zablokować użytkownika?' : 'Odblokować użytkownika?';
-    const message = isBlocking
-        ? `Czy na pewno chcesz zablokować użytkownika "${userName}"? Użytkownik nie będzie mógł się logować do systemu.`
-        : `Czy na pewno chcesz odblokować użytkownika "${userName}"? Użytkownik odzyska dostęp do systemu.`;
-    const confirmText = isBlocking ? 'Zablokuj' : 'Odblokuj';
-
-    showModal(title, message, confirmText, 'Anuluj', function() {
-        document.getElementById('toggle-status-form').submit();
-    });
+function openBlockModal(userId, userName) {
+    document.getElementById('blockModal').classList.remove('hidden');
+    document.getElementById('blockForm').action = `/admin/users/${userId}/block`;
 }
+
+function closeBlockModal() {
+    document.getElementById('blockModal').classList.add('hidden');
+    document.getElementById('blockForm').reset();
+}
+
+// Close modal when clicking outside
+document.getElementById('blockModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeBlockModal();
+    }
+});
 
 function showAddNoteModal() {
     const modalContent = `
