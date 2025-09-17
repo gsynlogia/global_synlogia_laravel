@@ -36,3 +36,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [MagicLinkController::class, 'logout'])->name('logout');
 });
+
+// Admin routes (only for superusers)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin');
+});

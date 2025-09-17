@@ -45,4 +45,45 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Check if user is a superuser (hardcoded in .env)
+     *
+     * @return bool
+     */
+    public function isSuperuser(): bool
+    {
+        $superusers = explode(',', env('SUPERUSERS', ''));
+        $superusers = array_map('trim', $superusers);
+
+        return in_array($this->email, $superusers);
+    }
+
+    /**
+     * Check if user is an administrator (superuser or has admin role in database)
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        // First check if user is hardcoded superuser
+        if ($this->isSuperuser()) {
+            return true;
+        }
+
+        // Later we'll add database role checking here for ACL
+        // For now, only superusers are admins
+        return false;
+    }
+
+    /**
+     * Get all superuser emails from configuration
+     *
+     * @return array
+     */
+    public static function getSuperuserEmails(): array
+    {
+        $superusers = explode(',', env('SUPERUSERS', ''));
+        return array_map('trim', $superusers);
+    }
 }
