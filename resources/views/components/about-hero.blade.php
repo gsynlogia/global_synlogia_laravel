@@ -1,23 +1,66 @@
 {{-- About Hero Section --}}
-<section class="relative py-20 bg-gradient-to-br from-[#003366] via-[#0056bc] to-[#4A90E2] overflow-hidden">
-    {{-- Background Pattern --}}
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-20 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+<section class="relative py-24 bg-gradient-to-br from-slate-50 to-white overflow-hidden">
+    {{-- Professional Background Pattern --}}
+    <div class="absolute inset-0 opacity-30">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-50 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-gray-50 to-transparent"></div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
-                O <span class="text-[#DE234B]">Global Synlogia</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                Lider w dziedzinie innowacyjnych rozwiązań IT i implementacji sztucznej inteligencji w biznesie
-            </p>
-            <div class="mt-8">
-                <span class="inline-block px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white font-semibold">
-                    🚀 Transformujemy biznes przez technologie przyszłości
-                </span>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {{-- Left Content --}}
+            <div>
+                <div class="mb-6">
+                    <span class="inline-block px-4 py-2 bg-blue-50 text-[#124f9e] text-sm font-semibold rounded-lg">
+                        O firmie
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                    <span class="text-[#124f9e]">Global Synlogia</span><br>
+                    Eksperci w dziedzinie AI
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    Profesjonalne rozwiązania informatyczne i implementacja sztucznej inteligencji
+                    dla przedsiębiorstw dążących do cyfrowej transformacji.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-6 h-6 text-[#124f9e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-700 font-medium">Certyfikowani specjaliści</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-pink-50 rounded-lg flex items-center justify-center mr-3">
+                            <svg class="w-6 h-6 text-[#de244b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span class="text-gray-700 font-medium">Nowoczesne technologie</span>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Right Statistics --}}
+            <div class="grid grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="text-2xl font-bold text-[#124f9e] mb-2">Projekty AI</div>
+                    <div class="text-gray-600 text-sm font-medium">Zaawansowane wdrożenia</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="text-2xl font-bold text-[#de244b] mb-2">Satysfakcja</div>
+                    <div class="text-gray-600 text-sm font-medium">Zadowolenie klientów</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="text-2xl font-bold text-[#124f9e] mb-2">Technologie</div>
+                    <div class="text-gray-600 text-sm font-medium">Nowoczesne rozwiązania</div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
+                    <div class="text-2xl font-bold text-[#de244b] mb-2">Wsparcie</div>
+                    <div class="text-gray-600 text-sm font-medium">Ciągła opieka techniczna</div>
+                </div>
             </div>
         </div>
     </div>
@@ -25,17 +68,21 @@
 
 @push('styles')
 <style>
-.hero-section {
-    background: linear-gradient(135deg, #003366 0%, #0056bc 50%, #4A90E2 100%);
+.stats-card {
+    transition: all 0.3s ease;
 }
 
-.animate-float-slow {
-    animation: floatSlow 6s ease-in-out infinite;
+.stats-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes floatSlow {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+.feature-icon {
+    transition: all 0.3s ease;
+}
+
+.feature-icon:hover {
+    transform: scale(1.05);
 }
 </style>
 @endpush
