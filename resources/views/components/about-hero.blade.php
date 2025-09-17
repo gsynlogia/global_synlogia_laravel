@@ -1,9 +1,9 @@
 {{-- About Hero Section --}}
-<section class="relative py-24 bg-gradient-to-br from-slate-50 to-white overflow-hidden">
+<section class="relative py-24 bg-gray-50 overflow-hidden">
     {{-- Professional Background Pattern --}}
     <div class="absolute inset-0 opacity-30">
-        <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-50 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-gray-50 to-transparent"></div>
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-blue-50 opacity-30"></div>
+        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gray-100 opacity-50"></div>
     </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +15,7 @@
                         O firmie
                     </span>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-tight">
                     <span class="text-[#124f9e]">Global Synlogia</span><br>
                     Eksperci w dziedzinie AI
                 </h1>

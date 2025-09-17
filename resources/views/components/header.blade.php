@@ -1,7 +1,7 @@
 {{-- Sticky Header Container (Info Banner + Navigation) --}}
 <div class="sticky top-0 z-50">
     {{-- Niebieski pasek informacyjny --}}
-    <div class="text-white py-3 px-4 w-full" style="background-color: #0056bc;">
+    <div class="text-white py-3 px-4 w-full" style="background-color: #124f9e;">
         <div class="max-w-7xl mx-auto">
             <div class="flex items-center justify-center space-x-3">
                 <div class="flex-shrink-0">
@@ -53,7 +53,7 @@
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex-shrink-0">
                     <button id="mobile-menu-btn"
-                            class="text-gray-800 hover:text-[#0056bc] hover:bg-blue-50 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0056bc] cursor-pointer transition-all duration-300"
+                            class="text-gray-800 hover:text-[#124f9e] hover:bg-blue-50 inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#124f9e] cursor-pointer transition-all duration-300"
                             aria-expanded="false">
                         <span class="sr-only">Otwórz menu główne</span>
                         <svg id="menu-icon" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +85,7 @@
 <style>
     /* Info banner specific styles */
     .info-banner {
-        background-color: #0056bc;
+        background-color: #124f9e;
     }
 
     .info-banner .info-icon {

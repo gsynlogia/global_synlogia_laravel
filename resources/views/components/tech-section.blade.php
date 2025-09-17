@@ -2,7 +2,7 @@
 <section id="tech-section" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 animate-fade-scale">
-            <h2 class="text-4xl sm:text-5xl font-bold text-gray-800 mb-6">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#124f9e] mb-6">
                 Technologie
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -26,28 +26,28 @@ class TechSection {
                 name: "Python",
                 icon: "code2",
                 description: "Backend development, AI/ML, Data Science",
-                color: "bg-green-600",
+                color: "bg-[#124f9e]",
                 link: "/technologie/python"
             },
             {
                 name: "React",
                 icon: "atom",
                 description: "Modern frontend applications",
-                color: "bg-[#0056bc]",
+                color: "bg-[#de244b]",
                 link: "/technologie/react"
             },
             {
                 name: "Node.js",
                 icon: "terminal",
                 description: "Server-side JavaScript runtime",
-                color: "bg-green-700",
+                color: "bg-[#124f9e]",
                 link: "/technologie/nodejs"
             },
             {
                 name: "FastAPI",
                 icon: "zap",
                 description: "High-performance Python web framework",
-                color: "bg-teal-600",
+                color: "bg-[#de244b]",
                 link: "/technologie/fastapi"
             }
         ];
@@ -84,16 +84,16 @@ class TechSection {
                    class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-500 text-center group cursor-pointer block tech-card opacity-0"
                    style="animation-delay: ${index * 0.1}s">
                     <div class="flex justify-center mb-4 group-hover:animate-bounce">
-                        ${LucideIcons.getIcon(tech.icon, "w-16 h-16 text-gray-700 group-hover:text-[#0056bc] transition-colors duration-300")}
+                        ${LucideIcons.getIcon(tech.icon, "w-16 h-16 text-gray-700 group-hover:text-[#124f9e] transition-colors duration-300")}
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-[#0056bc] transition-colors duration-300">
+                    <h3 class="text-lg font-bold text-[#124f9e] mb-3 group-hover:text-[#de244b] transition-colors duration-300">
                         ${tech.name}
                     </h3>
                     <p class="text-gray-600 text-sm leading-relaxed mb-4">
                         ${tech.description}
                     </p>
                     <div class="h-2 ${tech.color} rounded-full opacity-20 group-hover:opacity-100 transition-opacity duration-500 mb-4"></div>
-                    <div class="text-[#0056bc] font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="text-[#de244b] font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         Zobacz szczegóły →
                     </div>
                 </a>

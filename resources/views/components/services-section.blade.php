@@ -2,14 +2,14 @@
 <section id="services" class="py-20 bg-gray-100 relative overflow-hidden">
     <!-- Animated particles -->
     <div class="absolute inset-0 opacity-20">
-        <div class="animate-float absolute top-20 left-20 w-4 h-4 bg-[#0056bc] rounded-full"></div>
-        <div class="animate-float absolute top-40 right-32 w-3 h-3 bg-green-400 rounded-full" style="animation-delay: 1s;"></div>
-        <div class="animate-float absolute bottom-32 left-1/3 w-2 h-2 bg-purple-400 rounded-full" style="animation-delay: 2s;"></div>
+        <div class="animate-float absolute top-20 left-20 w-4 h-4 bg-[#124f9e] rounded-full"></div>
+        <div class="animate-float absolute top-40 right-32 w-3 h-3 bg-[#de244b] rounded-full" style="animation-delay: 1s;"></div>
+        <div class="animate-float absolute bottom-32 left-1/3 w-2 h-2 bg-[#124f9e] rounded-full" style="animation-delay: 2s;"></div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div class="text-center mb-16 animate-fade-scale">
-            <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#124f9e] mb-6">
                 Główne Usługi
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -94,19 +94,19 @@ class ServicesSection {
         this.services.forEach((service, index) => {
             html += `
                 <a href="${service.link}"
-                   class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:scale-105 hover:bg-gray-50 hover:border-[#0056bc] transition-all duration-500 group cursor-pointer block shadow-lg service-card opacity-0"
+                   class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover:scale-105 hover:bg-gray-50 hover:border-[#124f9e] transition-all duration-500 group cursor-pointer block shadow-lg service-card opacity-0"
                    style="animation-delay: ${index * 0.1}s">
                     <div class="flex justify-center mb-6 text-center group-hover:animate-bounce transition-all duration-300">
-                        ${LucideIcons.getIcon(service.icon, "w-12 h-12 text-[#0056bc]")}
+                        ${LucideIcons.getIcon(service.icon, "w-12 h-12 text-[#124f9e]")}
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center group-hover:text-[#0056bc] transition-colors duration-300">
+                    <h3 class="text-lg font-bold text-[#124f9e] mb-4 text-center group-hover:text-[#de244b] transition-colors duration-300">
                         ${service.title}
                     </h3>
                     <p class="text-gray-600 text-center leading-relaxed group-hover:text-gray-900 transition-colors duration-300 mb-4">
                         ${service.description}
                     </p>
                     <div class="text-center">
-                        <span class="text-[#0056bc] text-sm font-medium group-hover:text-gray-900 transition-colors duration-300">
+                        <span class="text-[#de244b] text-sm font-medium hover:underline transition-colors duration-300">
                             Zobacz szczegóły →
                         </span>
                     </div>

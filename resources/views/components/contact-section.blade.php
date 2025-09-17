@@ -2,7 +2,7 @@
 <section id="contact" class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-[#003366] mb-4">Skontaktuj się z nami</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#124f9e] mb-4">Skontaktuj się z nami</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Gotowy na realizację swojego projektu? Napisz do nas i omówmy szczegóły
             </p>
@@ -11,17 +11,17 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
                 <div class="bg-white rounded-2xl shadow-lg p-8">
-                    <h3 class="text-2xl font-bold text-[#003366] mb-6">Dane kontaktowe</h3>
+                    <h3 class="text-lg font-bold text-[#124f9e] mb-6">Dane kontaktowe</h3>
 
                     <div class="space-y-6">
                         <div class="flex items-start">
-                            <div class="bg-[#DE234B] text-white rounded-full p-3 mr-4 flex-shrink-0">
+                            <div class="bg-[#de244b] text-white rounded-full p-3 mr-4 flex-shrink-0">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-[#003366] mb-1">Adres</h4>
+                                <h4 class="font-bold text-[#124f9e] mb-1">Adres</h4>
                                 <p class="text-gray-600">
                                     ul. Władysława Jagiełły 2/20<br>
                                     80-180 Gdańsk<br>
@@ -31,38 +31,38 @@
                         </div>
 
                         <div class="flex items-start">
-                            <div class="bg-[#DE234B] text-white rounded-full p-3 mr-4 flex-shrink-0">
+                            <div class="bg-[#de244b] text-white rounded-full p-3 mr-4 flex-shrink-0">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-[#003366] mb-1">Email</h4>
+                                <h4 class="font-bold text-[#124f9e] mb-1">Email</h4>
                                 <p class="text-gray-600">kontakt@globalsynlogia.com</p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
-                            <div class="bg-[#DE234B] text-white rounded-full p-3 mr-4 flex-shrink-0">
+                            <div class="bg-[#de244b] text-white rounded-full p-3 mr-4 flex-shrink-0">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-[#003366] mb-1">Telefon</h4>
+                                <h4 class="font-bold text-[#124f9e] mb-1">Telefon</h4>
                                 <p class="text-gray-600">+48 663 583 950</p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
-                            <div class="bg-[#DE234B] text-white rounded-full p-3 mr-4 flex-shrink-0">
+                            <div class="bg-[#de244b] text-white rounded-full p-3 mr-4 flex-shrink-0">
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-[#003366] mb-1">Godziny pracy</h4>
+                                <h4 class="font-bold text-[#124f9e] mb-1">Godziny pracy</h4>
                                 <p class="text-gray-600">
                                     Pon-Pt: 9:00 - 17:00<br>
                                     Sob-Ndz: na umówienie
@@ -71,7 +71,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 p-6 bg-gradient-to-r from-[#003366] to-[#0056bc] rounded-xl text-white">
+                    <div class="mt-8 p-6 bg-[#124f9e] rounded-xl text-white">
                         <h4 class="font-bold mb-2">Dane firmowe</h4>
                         <p class="text-sm opacity-90">
                             GLOBAL-SYNLOGIA Szymon Guzik<br>
@@ -84,14 +84,14 @@
 
             <div>
                 <div class="bg-white rounded-2xl shadow-lg p-8">
-                    <h3 class="text-2xl font-bold text-[#003366] mb-6">Wyślij wiadomość</h3>
+                    <h3 class="text-lg font-bold text-[#124f9e] mb-6">Wyślij wiadomość</h3>
 
                     <div id="contact-status" class="hidden mb-6 p-4 rounded-lg"></div>
 
                     <form id="contact-form" class="space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-[#003366] mb-2">
+                                <label for="name" class="block text-sm font-medium text-[#124f9e] mb-2">
                                     Imię i nazwisko *
                                 </label>
                                 <input
@@ -99,12 +99,12 @@
                                     id="name"
                                     name="name"
                                     required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#DE234B] focus:border-transparent transition-colors"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#de244b] focus:border-transparent transition-colors"
                                     placeholder="Jan Kowalski"
                                 />
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-[#003366] mb-2">
+                                <label for="email" class="block text-sm font-medium text-[#124f9e] mb-2">
                                     Email *
                                 </label>
                                 <input
@@ -112,14 +112,14 @@
                                     id="email"
                                     name="email"
                                     required
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#DE234B] focus:border-transparent transition-colors"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#de244b] focus:border-transparent transition-colors"
                                     placeholder="jan@example.com"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label for="phone" class="block text-sm font-medium text-[#003366] mb-2">
+                            <label for="phone" class="block text-sm font-medium text-[#124f9e] mb-2">
                                 Telefon
                             </label>
                             <input
@@ -132,7 +132,7 @@
                         </div>
 
                         <div>
-                            <label for="subject" class="block text-sm font-medium text-[#003366] mb-2">
+                            <label for="subject" class="block text-sm font-medium text-[#124f9e] mb-2">
                                 Temat *
                             </label>
                             <input
@@ -146,7 +146,7 @@
                         </div>
 
                         <div>
-                            <label for="message" class="block text-sm font-medium text-[#003366] mb-2">
+                            <label for="message" class="block text-sm font-medium text-[#124f9e] mb-2">
                                 Wiadomość *
                             </label>
                             <textarea
@@ -162,7 +162,7 @@
                         <button
                             type="submit"
                             id="submit-btn"
-                            class="w-full bg-[#DE234B] hover:bg-[#c92042] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors"
+                            class="w-full bg-[#de244b] hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors"
                         >
                             Wyślij wiadomość
                         </button>

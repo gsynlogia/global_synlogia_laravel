@@ -7,7 +7,7 @@
 <div class="container mx-auto px-4 py-16">
     {{-- Header Section --}}
     <div class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+        <h1 class="text-2xl md:text-3xl font-bold text-[#124f9e] mb-6">
             Blog Techniczny
         </h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -22,13 +22,13 @@
             <input
                 type="text"
                 placeholder="Szukaj artykułów..."
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#124f9e] focus:border-[#124f9e]"
             />
         </div>
 
         {{-- Category Filter --}}
         <div class="md:w-64">
-            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#124f9e] focus:border-[#124f9e]">
                 <option>Wszystkie kategorie</option>
                 <option>Python</option>
                 <option>Docker</option>
@@ -56,11 +56,11 @@
                     class="w-full h-48 object-cover"
                 />
                 <div class="absolute top-3 left-3">
-                    <span class="bg-orange-500 text-white px-3 py-1 rounded text-sm font-medium">Wyróżniony</span>
+                    <span class="bg-[#de244b] text-white px-3 py-1 rounded text-sm font-medium">Wyróżniony</span>
                 </div>
             </div>
             <div class="p-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-[#de244b] transition-colors">
                     Python - Keras, Pandas, Numpy - tak poproszę - czyli rozpoznawanie obrazów dla każdego
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">
@@ -85,11 +85,11 @@
                     class="w-full h-48 object-cover"
                 />
                 <div class="absolute top-3 left-3">
-                    <span class="bg-blue-500 text-white px-3 py-1 rounded text-sm font-medium">Docker</span>
+                    <span class="bg-[#124f9e] text-white px-3 py-1 rounded text-sm font-medium">Docker</span>
                 </div>
             </div>
             <div class="p-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-[#de244b] transition-colors">
                     Docker - Podstawy konteneryzacji
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">
@@ -114,11 +114,11 @@
                     class="w-full h-48 object-cover"
                 />
                 <div class="absolute top-3 left-3">
-                    <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium">TypeScript</span>
+                    <span class="bg-[#124f9e] text-white px-3 py-1 rounded text-sm font-medium">TypeScript</span>
                 </div>
             </div>
             <div class="p-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-[#de244b] transition-colors">
                     TypeScript - Zaawansowane typy
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">
@@ -143,11 +143,11 @@
                     class="w-full h-48 object-cover"
                 />
                 <div class="absolute top-3 left-3">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-medium">Web Development</span>
+                    <span class="bg-[#de244b] text-white px-3 py-1 rounded text-sm font-medium">Web Development</span>
                 </div>
             </div>
             <div class="p-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-[#de244b] transition-colors">
                     React 18 - Nowości i funkcje
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">
@@ -172,11 +172,11 @@
                     class="w-full h-48 object-cover"
                 />
                 <div class="absolute top-3 left-3">
-                    <span class="bg-green-500 text-white px-3 py-1 rounded text-sm font-medium">Web Development</span>
+                    <span class="bg-[#de244b] text-white px-3 py-1 rounded text-sm font-medium">Web Development</span>
                 </div>
             </div>
             <div class="p-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-[#de244b] transition-colors">
                     Next.js App Router - Nowa era w React
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">
@@ -201,11 +201,11 @@
                     class="w-full h-48 object-cover"
                 />
                 <div class="absolute top-3 left-3">
-                    <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-medium">Programowanie</span>
+                    <span class="bg-[#124f9e] text-white px-3 py-1 rounded text-sm font-medium">Programowanie</span>
                 </div>
             </div>
             <div class="p-4">
-                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+                <h3 class="text-lg font-bold text-gray-900 mb-2 hover:text-[#de244b] transition-colors">
                     Python FastAPI - Szybkie API w praktyce
                 </h3>
                 <p class="text-gray-600 text-sm mb-4">
@@ -254,7 +254,7 @@
 }
 
 .grid > article:hover h3 {
-    color: #2563eb;
+    color: #de244b;
 }
 
 /* Line clamp for descriptions */

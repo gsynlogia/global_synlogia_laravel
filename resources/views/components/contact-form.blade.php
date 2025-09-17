@@ -2,7 +2,7 @@
 <div id="contact-form" class="contact-form-container">
     <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-[#003366] mb-4">Wyślij wiadomość</h2>
+            <h2 class="text-lg font-bold text-[#124f9e] mb-4">Wyślij wiadomość</h2>
             <p class="text-gray-600">Wypełnij formularz, a skontaktujemy się z Tobą w ciągu 24 godzin</p>
         </div>
 
@@ -18,92 +18,92 @@
             {{-- Name Fields --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="form-group">
-                    <label for="firstName" class="block text-sm font-bold text-[#003366] mb-2">
-                        Imię <span class="text-[#DE234B]">*</span>
+                    <label for="firstName" class="block text-sm font-bold text-[#124f9e] mb-2">
+                        Imię <span class="text-[#de244b]">*</span>
                     </label>
                     <input
                         type="text"
                         id="firstName"
                         name="firstName"
                         required
-                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#0056bc] focus:outline-none transition-colors duration-300"
+                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#124f9e] focus:outline-none transition-colors duration-300"
                         placeholder="Twoje imię"
                     >
-                    <div class="error-message text-[#DE234B] text-sm mt-1 hidden"></div>
+                    <div class="error-message text-[#de244b] text-sm mt-1 hidden"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="lastName" class="block text-sm font-bold text-[#003366] mb-2">
-                        Nazwisko <span class="text-[#DE234B]">*</span>
+                    <label for="lastName" class="block text-sm font-bold text-[#124f9e] mb-2">
+                        Nazwisko <span class="text-[#de244b]">*</span>
                     </label>
                     <input
                         type="text"
                         id="lastName"
                         name="lastName"
                         required
-                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#0056bc] focus:outline-none transition-colors duration-300"
+                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#124f9e] focus:outline-none transition-colors duration-300"
                         placeholder="Twoje nazwisko"
                     >
-                    <div class="error-message text-[#DE234B] text-sm mt-1 hidden"></div>
+                    <div class="error-message text-[#de244b] text-sm mt-1 hidden"></div>
                 </div>
             </div>
 
             {{-- Contact Fields --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="form-group">
-                    <label for="email" class="block text-sm font-bold text-[#003366] mb-2">
-                        Email <span class="text-[#DE234B]">*</span>
+                    <label for="email" class="block text-sm font-bold text-[#124f9e] mb-2">
+                        Email <span class="text-[#de244b]">*</span>
                     </label>
                     <input
                         type="email"
                         id="email"
                         name="email"
                         required
-                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#0056bc] focus:outline-none transition-colors duration-300"
+                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#124f9e] focus:outline-none transition-colors duration-300"
                         placeholder="twoj@email.com"
                     >
-                    <div class="error-message text-[#DE234B] text-sm mt-1 hidden"></div>
+                    <div class="error-message text-[#de244b] text-sm mt-1 hidden"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone" class="block text-sm font-bold text-[#003366] mb-2">
+                    <label for="phone" class="block text-sm font-bold text-[#124f9e] mb-2">
                         Telefon
                     </label>
                     <input
                         type="tel"
                         id="phone"
                         name="phone"
-                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#0056bc] focus:outline-none transition-colors duration-300"
+                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#124f9e] focus:outline-none transition-colors duration-300"
                         placeholder="+48 123 456 789"
                     >
-                    <div class="error-message text-[#DE234B] text-sm mt-1 hidden"></div>
+                    <div class="error-message text-[#de244b] text-sm mt-1 hidden"></div>
                 </div>
             </div>
 
             {{-- Company and Subject --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="form-group">
-                    <label for="company" class="block text-sm font-bold text-[#003366] mb-2">
+                    <label for="company" class="block text-sm font-bold text-[#124f9e] mb-2">
                         Firma
                     </label>
                     <input
                         type="text"
                         id="company"
                         name="company"
-                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#0056bc] focus:outline-none transition-colors duration-300"
+                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#124f9e] focus:outline-none transition-colors duration-300"
                         placeholder="Nazwa firmy"
                     >
                 </div>
 
                 <div class="form-group">
-                    <label for="subject" class="block text-sm font-bold text-[#003366] mb-2">
-                        Temat <span class="text-[#DE234B]">*</span>
+                    <label for="subject" class="block text-sm font-bold text-[#124f9e] mb-2">
+                        Temat <span class="text-[#de244b]">*</span>
                     </label>
                     <select
                         id="subject"
                         name="subject"
                         required
-                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#0056bc] focus:outline-none transition-colors duration-300"
+                        class="form-input w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#124f9e] focus:outline-none transition-colors duration-300"
                     >
                         <option value="">Wybierz temat</option>
                         <option value="web-development">Tworzenie stron internetowych</option>
@@ -114,14 +114,14 @@
                         <option value="consulting">Konsultacje IT</option>
                         <option value="other">Inne</option>
                     </select>
-                    <div class="error-message text-[#DE234B] text-sm mt-1 hidden"></div>
+                    <div class="error-message text-[#de244b] text-sm mt-1 hidden"></div>
                 </div>
             </div>
 
             {{-- Message --}}
             <div class="form-group">
-                <label for="message" class="block text-sm font-bold text-[#003366] mb-2">
-                    Wiadomość <span class="text-[#DE234B]">*</span>
+                <label for="message" class="block text-sm font-bold text-[#124f9e] mb-2">
+                    Wiadomość <span class="text-[#de244b]">*</span>
                 </label>
                 <textarea
                     id="message"
@@ -142,12 +142,12 @@
                         id="privacy"
                         name="privacy"
                         required
-                        class="form-checkbox mt-1 mr-3 w-5 h-5 text-[#0056bc] border-2 border-gray-300 rounded focus:ring-[#0056bc] focus:ring-2"
+                        class="form-checkbox mt-1 mr-3 w-5 h-5 text-[#124f9e] border-2 border-gray-300 rounded focus:ring-[#124f9e] focus:ring-2"
                     >
                     <span class="text-sm text-gray-600 leading-relaxed">
                         Wyrażam zgodę na przetwarzanie moich danych osobowych zgodnie z
-                        <a href="/polityka-prywatnosci" class="text-[#0056bc] hover:text-[#DE234B] underline">polityką prywatności</a>
-                        <span class="text-[#DE234B]">*</span>
+                        <a href="/polityka-prywatnosci" class="text-[#de244b] hover:text-[#124f9e] underline">polityką prywatności</a>
+                        <span class="text-[#de244b]">*</span>
                     </span>
                 </label>
                 <div class="error-message text-[#DE234B] text-sm mt-1 hidden"></div>
@@ -158,7 +158,7 @@
                 <button
                     type="submit"
                     id="submitBtn"
-                    class="submit-button w-full bg-gradient-to-r from-[#0056bc] to-[#003366] text-white font-bold py-4 px-8 rounded-xl hover:from-[#DE234B] hover:to-[#c41e3f] transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+                    class="submit-button w-full bg-[#de244b] text-white font-bold py-4 px-8 rounded-xl hover:bg-red-700 transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-red-300"
                 >
                     <span class="button-text">Wyślij wiadomość</span>
                     <span class="loading-spinner hidden">
@@ -183,12 +183,12 @@
 }
 
 .form-input:focus {
-    box-shadow: 0 0 0 3px rgba(0, 86, 188, 0.1);
+    box-shadow: 0 0 0 3px rgba(18, 79, 158, 0.1);
 }
 
 .form-input.error {
-    border-color: #DE234B;
-    box-shadow: 0 0 0 3px rgba(222, 35, 75, 0.1);
+    border-color: #de244b;
+    box-shadow: 0 0 0 3px rgba(222, 36, 75, 0.1);
 }
 
 .form-input.success {
@@ -219,7 +219,7 @@
 }
 
 .submit-button:disabled:hover {
-    background: linear-gradient(to right, #0056bc, #003366) !important;
+    background: #de244b !important;
 }
 
 @keyframes fadeSlideIn {

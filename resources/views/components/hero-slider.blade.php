@@ -66,7 +66,7 @@
                     ></div>
 
                     {{-- Animated overlay --}}
-                    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
+                    <div class="absolute inset-0 bg-black/50"></div>
 
                     {{-- Floating particles effect --}}
                     <div class="absolute inset-0 opacity-30">
@@ -81,22 +81,22 @@
                             <div class="max-w-3xl text-white ml-8 sm:ml-12 md:ml-16 lg:ml-20 transition-all duration-1000 delay-300 {{ $index === 0 ? 'animate-slide-up' : 'opacity-0' }}" data-slide-content>
                                 <div class="glass rounded-2xl p-8 backdrop-blur-sm animate-fade-scale">
                                     @if($slide['subtitle'])
-                                        <h2 class="text-sm sm:text-base md:text-lg font-bold mb-2 text-white opacity-90">
+                                        <h2 class="text-sm sm:text-base font-bold mb-2 text-[#124f9e] opacity-90">
                                             {{ $slide['subtitle'] }}
                                         </h2>
                                     @endif
-                                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight text-white">
+                                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight text-white">
                                         {{ $slide['title'] }}
                                     </h1>
                                     @if($slide['description'])
-                                        <p class="text-lg sm:text-xl md:text-2xl mb-8 opacity-95 leading-relaxed max-w-2xl">
+                                        <p class="text-base sm:text-lg mb-8 opacity-95 leading-relaxed max-w-2xl">
                                             {{ $slide['description'] }}
                                         </p>
                                     @endif
                                     @if($slide['button_text'] && $slide['button_link'])
                                         <a
                                             href="{{ $slide['button_link'] }}"
-                                            class="inline-flex items-center gap-2 bg-[#DE234B] hover:bg-red-700 px-8 py-4 text-lg font-bold text-white rounded-full transition-all duration-300 transform hover:scale-110 focus:scale-110 focus:outline-none cursor-pointer"
+                                            class="inline-flex items-center gap-2 bg-[#de244b] hover:bg-red-700 px-6 py-3 text-base font-bold text-white rounded-lg transition-all duration-300 transform hover:scale-105 focus:scale-105 focus:outline-none cursor-pointer"
                                             aria-label="{{ $slide['button_text'] }} - {{ $slide['title'] }}"
                                         >
                                             {{ $slide['button_text'] }}
@@ -154,7 +154,7 @@
     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4 glass px-6 py-3 rounded-full">
         @foreach($activeSlides as $index => $slide)
             <button
-                class="hero-dot w-3 h-3 rounded-full transition-all duration-500 focus:outline-none cursor-pointer transform hover:scale-150 {{ $index === 0 ? 'bg-[#DE234B] scale-150' : 'bg-white/50 hover:bg-white/80' }}"
+                class="hero-dot w-3 h-3 rounded-full transition-all duration-500 focus:outline-none cursor-pointer transform hover:scale-150 {{ $index === 0 ? 'bg-[#de244b] scale-150' : 'bg-white/50 hover:bg-white/80' }}"
                 data-slide-index="{{ $index }}"
                 aria-label="Przejdź do slajdu {{ $index + 1 }}: {{ $slide['title'] }}"
                 type="button"
@@ -165,7 +165,7 @@
     {{-- Progress bar --}}
     <div class="absolute bottom-0 left-0 right-0 h-1 bg-black/20">
         <div
-            class="hero-progress h-full bg-[#DE234B] transition-all duration-1000"
+            class="hero-progress h-full bg-[#de244b] transition-all duration-1000"
             style="width: {{ count($activeSlides) > 0 ? (100 / count($activeSlides)) : 0 }}%"
         ></div>
     </div>
@@ -185,8 +185,8 @@
 }
 
 @keyframes glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(222, 35, 75, 0.5); }
-    50% { box-shadow: 0 0 40px rgba(222, 35, 75, 0.8), 0 0 60px rgba(165, 94, 234, 0.4); }
+    0%, 100% { box-shadow: 0 0 20px rgba(222, 36, 75, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(222, 36, 75, 0.8), 0 0 60px rgba(18, 79, 158, 0.4); }
 }
 
 @keyframes slideInUp {
@@ -358,9 +358,9 @@ class HeroSlider {
         this.dots.forEach((dot, i) => {
             if (i === index) {
                 dot.classList.remove('bg-white/50');
-                dot.classList.add('bg-[#DE234B]', 'scale-150');
+                dot.classList.add('bg-[#de244b]', 'scale-150');
             } else {
-                dot.classList.remove('bg-[#DE234B]', 'scale-150');
+                dot.classList.remove('bg-[#de244b]', 'scale-150');
                 dot.classList.add('bg-white/50');
             }
         });

@@ -17,7 +17,7 @@
 
         {{-- CEO Section --}}
         <div class="mb-20">
-            <div class="max-w-5xl mx-auto bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-12">
+            <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-12">
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
                     <div class="md:col-span-2 text-center">
                         <div class="relative inline-block">
@@ -187,7 +187,7 @@
 }
 
 .ceo-card {
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    background: #ffffff;
 }
 </style>
 @endpush

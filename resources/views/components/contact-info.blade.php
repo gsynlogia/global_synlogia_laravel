@@ -3,21 +3,21 @@
     <div class="space-y-8">
         {{-- Contact Details Card --}}
         <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <h3 class="text-2xl font-bold text-[#003366] mb-6 flex items-center">
-                <div class="w-8 h-8 bg-gradient-to-r from-[#0056bc] to-[#DE234B] rounded-full mr-3"></div>
+            <h3 class="text-lg font-bold text-[#124f9e] mb-6 flex items-center">
+                <div class="w-8 h-8 bg-[#124f9e] rounded-full mr-3"></div>
                 Dane kontaktowe
             </h3>
 
             <div class="space-y-6">
                 {{-- Address --}}
                 <div class="contact-item flex items-start group cursor-pointer hover:bg-gray-50 p-4 rounded-xl transition-all duration-300">
-                    <div class="contact-icon bg-[#DE234B] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <div class="contact-icon bg-[#de244b] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
                     <div>
-                        <h4 class="font-bold text-[#003366] mb-1 group-hover:text-[#0056bc] transition-colors duration-300">Adres</h4>
+                        <h4 class="font-bold text-[#124f9e] mb-1 group-hover:text-[#de244b] transition-colors duration-300">Adres</h4>
                         <p class="text-gray-600 leading-relaxed">
                             ul. Władysława Jagiełły 2/20<br>
                             80-180 Gdańsk<br>
@@ -28,14 +28,14 @@
 
                 {{-- Phone --}}
                 <div class="contact-item flex items-start group cursor-pointer hover:bg-gray-50 p-4 rounded-xl transition-all duration-300">
-                    <div class="contact-icon bg-[#0056bc] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <div class="contact-icon bg-[#124f9e] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h4 class="font-bold text-[#003366] mb-1 group-hover:text-[#0056bc] transition-colors duration-300">Telefon</h4>
-                        <a href="tel:+48123456789" class="text-[#0056bc] hover:text-[#DE234B] font-medium transition-colors duration-300">
+                        <h4 class="font-bold text-[#124f9e] mb-1 group-hover:text-[#de244b] transition-colors duration-300">Telefon</h4>
+                        <a href="tel:+48123456789" class="text-[#de244b] hover:text-[#124f9e] font-medium transition-colors duration-300">
                             +48 123 456 789
                         </a>
                         <p class="text-sm text-gray-500 mt-1">Poniedziałek - Piątek: 8:00 - 18:00</p>
@@ -44,15 +44,15 @@
 
                 {{-- Email --}}
                 <div class="contact-item flex items-start group cursor-pointer hover:bg-gray-50 p-4 rounded-xl transition-all duration-300">
-                    <div class="contact-icon bg-[#10B981] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <div class="contact-icon bg-[#de244b] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h4 class="font-bold text-[#003366] mb-1 group-hover:text-[#0056bc] transition-colors duration-300">Email</h4>
-                        <a href="mailto:kontakt@globalsynlogia.com" class="text-[#0056bc] hover:text-[#DE234B] font-medium transition-colors duration-300">
+                        <h4 class="font-bold text-[#124f9e] mb-1 group-hover:text-[#de244b] transition-colors duration-300">Email</h4>
+                        <a href="mailto:kontakt@globalsynlogia.com" class="text-[#de244b] hover:text-[#124f9e] font-medium transition-colors duration-300">
                             kontakt@globalsynlogia.com
                         </a>
                         <p class="text-sm text-gray-500 mt-1">Odpowiadamy w ciągu 24 godzin</p>
@@ -61,13 +61,13 @@
 
                 {{-- Business Hours --}}
                 <div class="contact-item flex items-start group cursor-pointer hover:bg-gray-50 p-4 rounded-xl transition-all duration-300">
-                    <div class="contact-icon bg-[#F59E0B] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <div class="contact-icon bg-[#124f9e] text-white rounded-full p-3 mr-4 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
                     <div>
-                        <h4 class="font-bold text-[#003366] mb-1 group-hover:text-[#0056bc] transition-colors duration-300">Godziny pracy</h4>
+                        <h4 class="font-bold text-[#124f9e] mb-1 group-hover:text-[#de244b] transition-colors duration-300">Godziny pracy</h4>
                         <div class="text-gray-600 space-y-1">
                             <p><span class="font-medium">Pon - Pt:</span> 8:00 - 18:00</p>
                             <p><span class="font-medium">Sobota:</span> 9:00 - 14:00</p>
@@ -80,8 +80,8 @@
 
         {{-- Social Media & Quick Actions --}}
         <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <h3 class="text-2xl font-bold text-[#003366] mb-6 flex items-center">
-                <div class="w-8 h-8 bg-gradient-to-r from-[#DE234B] to-[#0056bc] rounded-full mr-3"></div>
+            <h3 class="text-lg font-bold text-[#124f9e] mb-6 flex items-center">
+                <div class="w-8 h-8 bg-[#de244b] rounded-full mr-3"></div>
                 Śledź nas
             </h3>
 
@@ -102,14 +102,14 @@
             </div>
 
             <div class="space-y-4">
-                <a href="tel:+48123456789" class="quick-action flex items-center justify-center p-4 bg-gradient-to-r from-[#10B981] to-[#059669] text-white rounded-xl hover:from-[#059669] hover:to-[#047857] transition-all duration-300 transform hover:scale-105 font-bold">
+                <a href="tel:+48123456789" class="quick-action flex items-center justify-center p-4 bg-[#de244b] text-white rounded-xl hover:bg-red-700 transition-all duration-300 transform hover:scale-105 font-bold">
                     <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                     </svg>
                     Zadzwoń teraz
                 </a>
 
-                <a href="mailto:kontakt@globalsynlogia.com" class="quick-action flex items-center justify-center p-4 bg-gradient-to-r from-[#0056bc] to-[#003366] text-white rounded-xl hover:from-[#DE234B] hover:to-[#c41e3f] transition-all duration-300 transform hover:scale-105 font-bold">
+                <a href="mailto:kontakt@globalsynlogia.com" class="quick-action flex items-center justify-center p-4 bg-[#124f9e] text-white rounded-xl hover:bg-[#de244b] transition-all duration-300 transform hover:scale-105 font-bold">
                     <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
@@ -121,15 +121,15 @@
 
         {{-- FAQ Section --}}
         <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-            <h3 class="text-2xl font-bold text-[#003366] mb-6 flex items-center">
-                <div class="w-8 h-8 bg-gradient-to-r from-[#F59E0B] to-[#DE234B] rounded-full mr-3"></div>
+            <h3 class="text-lg font-bold text-[#124f9e] mb-6 flex items-center">
+                <div class="w-8 h-8 bg-[#de244b] rounded-full mr-3"></div>
                 Najczęściej zadawane pytania
             </h3>
 
             <div class="space-y-4">
                 <div class="faq-item border border-gray-200 rounded-xl">
                     <button class="faq-question w-full text-left p-4 hover:bg-gray-50 transition-colors duration-300 flex items-center justify-between" data-faq="1">
-                        <span class="font-bold text-[#003366]">Ile czasu trwa realizacja projektu?</span>
+                        <span class="font-bold text-[#124f9e]">Ile czasu trwa realizacja projektu?</span>
                         <svg class="faq-chevron w-5 h-5 text-gray-400 transform transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
@@ -141,7 +141,7 @@
 
                 <div class="faq-item border border-gray-200 rounded-xl">
                     <button class="faq-question w-full text-left p-4 hover:bg-gray-50 transition-colors duration-300 flex items-center justify-between" data-faq="2">
-                        <span class="font-bold text-[#003366]">Czy oferujecie wsparcie po zakończeniu projektu?</span>
+                        <span class="font-bold text-[#124f9e]">Czy oferujecie wsparcie po zakończeniu projektu?</span>
                         <svg class="faq-chevron w-5 h-5 text-gray-400 transform transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
@@ -153,7 +153,7 @@
 
                 <div class="faq-item border border-gray-200 rounded-xl">
                     <button class="faq-question w-full text-left p-4 hover:bg-gray-50 transition-colors duration-300 flex items-center justify-between" data-faq="3">
-                        <span class="font-bold text-[#003366]">Jakie technologie używacie?</span>
+                        <span class="font-bold text-[#124f9e]">Jakie technologie używacie?</span>
                         <svg class="faq-chevron w-5 h-5 text-gray-400 transform transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
@@ -187,7 +187,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 86, 188, 0.05), transparent);
+    background: rgba(18, 79, 158, 0.05);
     transition: left 0.5s;
 }
 
@@ -230,7 +230,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: rgba(255,255,255,0.2);
     transition: left 0.5s;
 }
 
@@ -250,7 +250,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: rgba(255,255,255,0.2);
     transition: left 0.5s;
 }
 
