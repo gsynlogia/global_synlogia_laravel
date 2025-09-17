@@ -59,7 +59,7 @@ class ServicesSection {
                 link: "/uslugi/zarzadzanie-danymi"
             },
             {
-                icon: "shield",
+                icon: "shield-check",
                 title: "Bezpieczeństwo IT",
                 description: "Audyty bezpieczeństwa, implementacja zabezpieczeń i monitoring systemów. Chronimy Twoje dane i infrastrukturę.",
                 link: "/uslugi/bezpieczenstwo-it"

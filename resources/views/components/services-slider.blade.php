@@ -72,7 +72,7 @@ class ServicesSlider {
             },
             {
                 id: 5,
-                icon: "shield",
+                icon: "shield-check",
                 title: "Security",
                 description: "Bezpieczeństwo IT i monitoring",
                 features: ["Security Audit", "24/7 Monitoring", "Compliance", "Incident Response"],

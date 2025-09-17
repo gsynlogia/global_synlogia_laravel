@@ -50,6 +50,42 @@
                     </div>
                 </nav>
 
+                <!-- Auth Section -->
+                <div class="hidden md:flex items-center space-x-4 ml-4">
+                    @auth
+                        <div class="flex items-center space-x-3">
+                            <div class="text-sm text-gray-600">
+                                Witaj, <span class="font-medium text-[#124f9e]">{{ auth()->user()->name }}</span>
+                            </div>
+                            <div class="h-6 w-px bg-gray-300"></div>
+                            <a href="/dashboard" class="flex items-center px-3 py-2 text-sm font-medium text-[#124f9e] hover:text-[#de244b] transition-colors duration-200 {{ request()->is('dashboard*') ? 'text-[#de244b]' : '' }}">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5v4m4-4v4m4-4v4"/>
+                                </svg>
+                                Panel
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="inline">
+                                @csrf
+                                <button type="submit" class="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-[#de244b] transition-colors duration-200">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                    </svg>
+                                    Wyloguj
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <a href="/login" class="flex items-center px-3 py-2 text-sm font-medium text-[#124f9e] hover:text-[#de244b] transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Logowanie
+                        </a>
+                    @endauth
+                </div>
+
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex-shrink-0">
                     <button id="mobile-menu-btn"
