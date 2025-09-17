@@ -1,6 +1,37 @@
 {{-- Badge Slider Container --}}
 <div id="badge-slider-container"></div>
 
+@push('styles')
+<style>
+/* Badge Slider Animations */
+@keyframes scrollLeft {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-scroll-left {
+    animation: scrollLeft 45s linear infinite;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-scale {
+    animation: fadeInScale 0.6s ease-out forwards;
+}
+</style>
+@endpush
 
 @push('script_badge_slider')
 <script>
