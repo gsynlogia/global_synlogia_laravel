@@ -163,10 +163,12 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-2">
-                                            <a href="{{ route('admin.roles.show', $role) }}" class="text-[#124f9e] hover:text-[#0f3f85]">
-                                                Szczegóły
+                                            <a href="{{ route('admin.roles.show', $role) }}"
+                                               class="inline-flex items-center px-3 py-1.5 border border-[#124f9e] text-[#124f9e] rounded-md hover:bg-[#124f9e] hover:text-white transition-colors text-xs">
+                                                Zobacz
                                             </a>
-                                            <a href="{{ route('admin.roles.edit', $role) }}" class="text-yellow-600 hover:text-yellow-900">
+                                            <a href="{{ route('admin.roles.edit', $role) }}"
+                                               class="inline-flex items-center px-3 py-1.5 border border-yellow-600 text-yellow-600 rounded-md hover:bg-yellow-600 hover:text-white transition-colors text-xs">
                                                 Edytuj
                                             </a>
 
@@ -176,13 +178,14 @@
                                                     @method('DELETE')
                                                     <button type="submit"
                                                             onclick="return confirm('Czy na pewno chcesz usunąć rolę {{ $role->display_name }}?')"
-                                                            class="text-red-600 hover:text-red-900">
+                                                            class="inline-flex items-center px-3 py-1.5 border border-red-600 text-red-600 rounded-md hover:bg-red-600 hover:text-white transition-colors text-xs">
                                                         Usuń
                                                     </button>
                                                 </form>
                                             @else
-                                                <span class="text-gray-400" title="Nie można usunąć roli przypisanej do administratora">
-                                                    Nie można usunąć
+                                                <span class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-gray-400 rounded-md cursor-not-allowed text-xs"
+                                                      title="Nie można usunąć roli przypisanej do administratora">
+                                                    Zablokowana
                                                 </span>
                                             @endif
                                         </div>

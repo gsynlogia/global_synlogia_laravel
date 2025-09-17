@@ -43,6 +43,21 @@ class MagicLinkController extends Controller
             ]
         );
 
+        // Add system note for account creation
+        if ($user->wasRecentlyCreated) {
+            $user->addNote(
+                'system',
+                'Konto utworzone',
+                'Konto użytkownika zostało automatycznie utworzone podczas procesu logowania.',
+                [
+                    'ip' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'registration_method' => 'magic_link',
+                    'created_at' => $user->created_at->toISOString()
+                ]
+            );
+        }
+
         // Create magic link
         $magicLink = MagicLink::createForEmail(
             $email,
@@ -82,8 +97,27 @@ class MagicLinkController extends Controller
                 ->with('error', 'Nie znaleziono użytkownika.');
         }
 
+        // Check if this is the first login (first magic link usage)
+        $isFirstLogin = !$user->notes()->where('type', 'login')->exists();
+
         // Mark magic link as used
         $magicLink->markAsUsed();
+
+        // Add login note
+        $user->addNote(
+            'login',
+            $isFirstLogin ? 'Pierwsze logowanie' : 'Logowanie',
+            $isFirstLogin
+                ? 'Użytkownik zalogował się po raz pierwszy, aktywując swoje konto.'
+                : 'Użytkownik zalogował się do systemu.',
+            [
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                'magic_link_token' => $token,
+                'is_first_login' => $isFirstLogin,
+                'login_time' => now()->toISOString()
+            ]
+        );
 
         // Log user in
         Auth::login($user);

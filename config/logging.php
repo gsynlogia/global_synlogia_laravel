@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'organized'),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,6 +58,30 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'organized' => [
+            'driver' => 'stack',
+            'channels' => ['single', 'error_daily', 'warning_daily'],
+            'ignore_exceptions' => false,
+        ],
+
+        'error_daily' => [
+            'driver' => 'monolog',
+            'handler' => \Monolog\Handler\StreamHandler::class,
+            'level' => 'error',
+            'handler_with' => [
+                'stream' => storage_path('logs/error_' . date('Y-m-d') . '.log'),
+            ],
+        ],
+
+        'warning_daily' => [
+            'driver' => 'monolog',
+            'handler' => \Monolog\Handler\StreamHandler::class,
+            'level' => 'warning',
+            'handler_with' => [
+                'stream' => storage_path('logs/warning_' . date('Y-m-d') . '.log'),
+            ],
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
@@ -70,6 +94,13 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true,
+        ],
+
+        'admin' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/admin.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
 

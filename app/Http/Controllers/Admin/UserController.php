@@ -88,6 +88,21 @@ class UserController extends Controller
             'is_admin' => $request->boolean('is_admin', false),
         ]);
 
+        // Add system note for admin-created account
+        $user->addNote(
+            'system',
+            'Konto utworzone przez administratora',
+            'Konto użytkownika zostało utworzone przez administratora w panelu administracyjnym.',
+            [
+                'ip' => request()->ip(),
+                'user_agent' => request()->userAgent(),
+                'registration_method' => 'admin_panel',
+                'is_admin' => $request->boolean('is_admin', false),
+                'assigned_roles' => $request->roles ?? []
+            ],
+            auth()->user()
+        );
+
         if ($request->filled('roles')) {
             $roleData = [];
             foreach ($request->roles as $roleId) {
@@ -97,6 +112,23 @@ class UserController extends Controller
                 ];
             }
             $user->roles()->sync($roleData);
+
+            // Add note about role assignment if roles were assigned
+            if (count($request->roles) > 0) {
+                $roleNames = \App\Models\Role::whereIn('id', $request->roles)->pluck('display_name')->toArray();
+                $user->addNote(
+                    'permission_change',
+                    'Role przypisane przy tworzeniu konta',
+                    'Podczas tworzenia konta przypisano następujące role: ' . implode(', ', $roleNames),
+                    [
+                        'ip' => request()->ip(),
+                        'user_agent' => request()->userAgent(),
+                        'assigned_roles' => $request->roles,
+                        'role_names' => $roleNames
+                    ],
+                    auth()->user()
+                );
+            }
         }
 
         return redirect()->route('admin.users.index')
@@ -106,9 +138,15 @@ class UserController extends Controller
     /**
      * Display the specified user
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        $user->load(['roles', 'blockedBy']);
+        $user->load(['roles', 'blockedBy', 'notes.createdBy']);
+
+        // If requesting only history for AJAX
+        if ($request->has('history_only')) {
+            $historyContent = view('admin.users.partials.full-history', compact('user'))->render();
+            return response($historyContent);
+        }
 
         return view('admin.users.show', compact('user'));
     }
@@ -151,6 +189,8 @@ class UserController extends Controller
         $user->update($updateData);
 
         if ($request->has('roles')) {
+            $oldRoles = $user->roles->pluck('display_name')->toArray();
+
             $roleData = [];
             foreach ($request->roles ?? [] as $roleId) {
                 $roleData[$roleId] = [
@@ -159,6 +199,39 @@ class UserController extends Controller
                 ];
             }
             $user->roles()->sync($roleData);
+
+            // Get new roles after sync
+            $user->load('roles');
+            $newRoles = $user->roles->pluck('display_name')->toArray();
+
+            // Add note about role changes if there were any changes
+            if ($oldRoles !== $newRoles) {
+                $removedRoles = array_diff($oldRoles, $newRoles);
+                $addedRoles = array_diff($newRoles, $oldRoles);
+
+                $changeDescription = [];
+                if (!empty($addedRoles)) {
+                    $changeDescription[] = 'Dodano role: ' . implode(', ', $addedRoles);
+                }
+                if (!empty($removedRoles)) {
+                    $changeDescription[] = 'Usunięto role: ' . implode(', ', $removedRoles);
+                }
+
+                $user->addNote(
+                    'permission_change',
+                    'Zmiana ról użytkownika',
+                    'Administrator zaktualizował role użytkownika. ' . implode('. ', $changeDescription) . '.',
+                    [
+                        'ip' => request()->ip(),
+                        'user_agent' => request()->userAgent(),
+                        'old_roles' => $oldRoles,
+                        'new_roles' => $newRoles,
+                        'added_roles' => array_values($addedRoles),
+                        'removed_roles' => array_values($removedRoles)
+                    ],
+                    auth()->user()
+                );
+            }
         }
 
         return redirect()->route('admin.users.index')
@@ -336,5 +409,142 @@ class UserController extends Controller
         $users = $query->limit(20)->get();
 
         return response()->json($users);
+    }
+
+    /**
+     * Toggle user status (active/blocked)
+     */
+    public function toggleStatus(User $user)
+    {
+        if (!$user->canBeBlockedBy(auth()->user())) {
+            return redirect()->back()
+                ->with('error', 'Nie masz uprawnień do zmiany statusu tego użytkownika.');
+        }
+
+        $currentAdmin = auth()->user();
+
+        if ($user->is_active) {
+            // Block the user
+            $user->update(['is_active' => false]);
+
+            // Add note to history
+            $user->addNote(
+                'block',
+                'Użytkownik został zablokowany',
+                'Status użytkownika zmieniony z aktywny na zablokowany przez administratora.',
+                [
+                    'ip' => request()->ip(),
+                    'user_agent' => request()->userAgent(),
+                    'previous_status' => 'active',
+                    'new_status' => 'blocked'
+                ],
+                $currentAdmin
+            );
+
+            $message = 'Użytkownik został zablokowany.';
+        } else {
+            // Unblock the user
+            $user->update(['is_active' => true]);
+
+            // Add note to history
+            $user->addNote(
+                'unblock',
+                'Użytkownik został odblokowany',
+                'Status użytkownika zmieniony z zablokowany na aktywny przez administratora.',
+                [
+                    'ip' => request()->ip(),
+                    'user_agent' => request()->userAgent(),
+                    'previous_status' => 'blocked',
+                    'new_status' => 'active'
+                ],
+                $currentAdmin
+            );
+
+            $message = 'Użytkownik został odblokowany.';
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
+
+    /**
+     * Add a manual note to user
+     */
+    public function addNote(Request $request, User $user)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:2000'
+        ]);
+
+        $user->addNote(
+            'manual',
+            $request->title,
+            $request->content,
+            [
+                'ip' => request()->ip(),
+                'user_agent' => request()->userAgent()
+            ]
+        );
+
+        return redirect()->back()->with('success', 'Notatka została dodana pomyślnie.');
+    }
+
+    /**
+     * Get user history via AJAX
+     */
+    public function history(Request $request, User $user)
+    {
+        $filter = $request->get('filter', 'all');
+        $sort = $request->get('sort', 'desc');
+
+        $query = $user->notes()->with('createdBy');
+
+        // Apply filter
+        if ($filter !== 'all') {
+            $query->where('type', $filter);
+        }
+
+        // Apply sort - Laravel handles this at SQL level
+        if ($sort === 'asc') {
+            $query->orderBy('created_at', 'asc')->orderBy('id', 'asc');
+        } else {
+            $query->orderBy('created_at', 'desc')->orderBy('id', 'desc');
+        }
+
+        $notes = $query->get();
+
+        // Return raw data - let frontend handle sorting and HTML generation
+        $data = $notes->map(function($note) {
+            // Format metadata dates
+            $metadata = $note->metadata ?? [];
+            if (isset($metadata['created_at'])) {
+                $metadata['created_at'] = \Carbon\Carbon::parse($metadata['created_at'])->format('Y-m-d H:i:s');
+            }
+            if (isset($metadata['login_time'])) {
+                $metadata['login_time'] = \Carbon\Carbon::parse($metadata['login_time'])->format('Y-m-d H:i:s');
+            }
+
+            return [
+                'id' => $note->id,
+                'type' => $note->type,
+                'title' => $note->title,
+                'content' => $note->content,
+                'created_at' => $note->created_at->toISOString(),
+                'created_at_formatted' => $note->created_at->format('Y-m-d H:i:s'),
+                'metadata' => $metadata,
+                'created_by' => $note->createdBy ? [
+                    'id' => $note->createdBy->id,
+                    'name' => $note->createdBy->name
+                ] : null,
+                'type_color' => $note->type_color,
+                'type_icon' => $note->type_icon,
+                'type_name' => $note->type_name
+            ];
+        });
+
+        return response()->json([
+            'notes' => $data,
+            'count' => $notes->count()
+        ]);
     }
 }

@@ -18,10 +18,18 @@
             </a>
         </div>
         <div class="flex items-center space-x-3">
-            <a href="{{ route('admin.users.blocked') }}" class="px-4 py-2 text-sm bg-yellow-100 text-yellow-800 rounded-lg hover:bg-yellow-200 transition-colors">
+            <a href="{{ route('admin.users.blocked') }}"
+               class="inline-flex items-center px-4 py-2 border border-orange-600 text-orange-600 rounded-lg hover:bg-orange-600 hover:text-white transition-colors text-sm">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"/>
+                </svg>
                 Zablokowani
             </a>
-            <a href="{{ route('admin.users.trash') }}" class="px-4 py-2 text-sm bg-red-100 text-red-800 rounded-lg hover:bg-red-200 transition-colors">
+            <a href="{{ route('admin.users.trash') }}"
+               class="inline-flex items-center px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-colors text-sm">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
                 Kosz
             </a>
         </div>
@@ -34,7 +42,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-gray-600 text-sm font-medium">Wszyscy użytkownicy</p>
-                <p class="text-3xl font-bold text-gray-900 mt-2">{{ $users->total() }}</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::count() }}</p>
             </div>
             <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +56,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-gray-600 text-sm font-medium">Aktywni użytkownicy</p>
-                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::active()->count() }}</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::where('is_active', true)->count() }}</p>
             </div>
             <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +70,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-gray-600 text-sm font-medium">Administratorzy</p>
-                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::admins()->count() }}</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::whereHas('roles', function($query) { $query->where('name', 'admin'); })->count() }}</p>
             </div>
             <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,14 +84,53 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-gray-600 text-sm font-medium">Zablokowani</p>
-                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::blocked()->count() }}</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ \App\Models\User::where('is_active', false)->count() }}</p>
             </div>
             <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18 21l-2.25-2.25m0 0L21 12l-9-9-9 9 6.75 6.75"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"/>
                 </svg>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="bg-white shadow-lg rounded-lg mb-6">
+    <div class="p-6">
+        <form method="GET" action="{{ route('admin.users.index') }}" class="flex flex-wrap items-center gap-4">
+            <div class="flex-1 min-w-64">
+                <input type="text" name="search" value="{{ request('search') }}"
+                       placeholder="Szukaj użytkowników..."
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#124f9e] focus:border-[#124f9e]">
+            </div>
+            <div>
+                <select name="role" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#124f9e] focus:border-[#124f9e]">
+                    <option value="">Wszystkie role</option>
+                    @foreach(\App\Models\Role::active()->get() as $role)
+                        <option value="{{ $role->id }}" {{ request('role') == $role->id ? 'selected' : '' }}>
+                            {{ $role->display_name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div>
+                <select name="status" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[#124f9e] focus:border-[#124f9e]">
+                    <option value="">Wszystkie statusy</option>
+                    <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Aktywni</option>
+                    <option value="blocked" {{ request('status') === 'blocked' ? 'selected' : '' }}>Zablokowani</option>
+                    <option value="admin" {{ request('status') === 'admin' ? 'selected' : '' }}>Administratorzy</option>
+                </select>
+            </div>
+            <button type="submit" class="bg-[#124f9e] text-white px-6 py-2 rounded-lg hover:bg-[#0f3f85] transition-colors">
+                Szukaj
+            </button>
+            @if(request()->hasAny(['search', 'role', 'status']))
+                <a href="{{ route('admin.users.index') }}" class="text-gray-600 hover:text-gray-800">
+                    Wyczyść filtry
+                </a>
+            @endif
+        </form>
     </div>
 </div>
 
@@ -174,12 +221,14 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-2">
-                                            <a href="{{ route('admin.users.show', $user) }}" class="text-[#124f9e] hover:text-[#0f3f85]">
-                                                Szczegóły
+                                            <a href="{{ route('admin.users.show', $user) }}"
+                                               class="inline-flex items-center px-3 py-1.5 border border-[#124f9e] text-[#124f9e] rounded-md hover:bg-[#124f9e] hover:text-white transition-colors text-xs">
+                                                Zobacz
                                             </a>
 
                                             @if($user->canBeDeletedBy(auth()->user()))
-                                                <a href="{{ route('admin.users.edit', $user) }}" class="text-yellow-600 hover:text-yellow-900">
+                                                <a href="{{ route('admin.users.edit', $user) }}"
+                                                   class="inline-flex items-center px-3 py-1.5 border border-yellow-600 text-yellow-600 rounded-md hover:bg-yellow-600 hover:text-white transition-colors text-xs">
                                                     Edytuj
                                                 </a>
                                             @endif
@@ -188,14 +237,16 @@
                                                 @if($user->canBeBlockedBy(auth()->user()))
                                                     <form method="POST" action="{{ route('admin.users.unblock', $user) }}" class="inline">
                                                         @csrf
-                                                        <button type="submit" class="text-green-600 hover:text-green-900">
+                                                        <button type="submit"
+                                                                class="inline-flex items-center px-3 py-1.5 border border-green-600 text-green-600 rounded-md hover:bg-green-600 hover:text-white transition-colors text-xs">
                                                             Odblokuj
                                                         </button>
                                                     </form>
                                                 @endif
                                             @else
                                                 @if($user->canBeBlockedBy(auth()->user()))
-                                                    <button onclick="openBlockModal('{{ $user->id }}', '{{ $user->name }}')" class="text-red-600 hover:text-red-900">
+                                                    <button onclick="openBlockModal('{{ $user->id }}', '{{ $user->name }}')"
+                                                            class="inline-flex items-center px-3 py-1.5 border border-orange-600 text-orange-600 rounded-md hover:bg-orange-600 hover:text-white transition-colors text-xs">
                                                         Zablokuj
                                                     </button>
                                                 @endif
@@ -205,18 +256,10 @@
                                                 <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')" class="text-red-600 hover:text-red-900">
-                                                        Usuń (soft)
-                                                    </button>
-                                                </form>
-                                            @endif
-
-                                            @if($user->canBeForceDeletedBy(auth()->user()))
-                                                <form method="POST" action="{{ route('admin.users.force-destroy', $user) }}" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Czy na pewno chcesz TRWALE usunąć tego użytkownika? Ta operacja jest nieodwracalna!')" class="text-red-800 hover:text-red-900 font-bold">
-                                                        Usuń (trwale)
+                                                    <button type="submit"
+                                                            onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?')"
+                                                            class="inline-flex items-center px-3 py-1.5 border border-red-600 text-red-600 rounded-md hover:bg-red-600 hover:text-white transition-colors text-xs">
+                                                        Usuń
                                                     </button>
                                                 </form>
                                             @endif

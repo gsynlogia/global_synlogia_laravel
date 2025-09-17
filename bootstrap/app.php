@@ -11,11 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Global middleware for detailed error logging
+        $middleware->append(\App\Http\Middleware\DetailedErrorLogging::class);
+
         $middleware->alias([
             'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'permission' => \App\Http\Middleware\CheckPermission::class,
             'role' => \App\Http\Middleware\CheckRole::class,
+            'debug.log' => \App\Http\Middleware\DetailedErrorLogging::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

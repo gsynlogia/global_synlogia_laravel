@@ -18,7 +18,11 @@
             </a>
         </div>
         <div>
-            <button onclick="openCrudModal()" class="px-4 py-2 text-sm bg-green-100 text-green-800 rounded-lg hover:bg-green-200 transition-colors">
+            <button onclick="openCrudModal()"
+                    class="inline-flex items-center px-4 py-2 border border-green-600 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors text-sm">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
                 Generuj CRUD
             </button>
         </div>
@@ -213,10 +217,12 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-2">
-                                            <a href="{{ route('admin.permissions.show', $permission) }}" class="text-[#124f9e] hover:text-[#0f3f85]">
-                                                Szczegóły
+                                            <a href="{{ route('admin.permissions.show', $permission) }}"
+                                               class="inline-flex items-center px-3 py-1.5 border border-[#124f9e] text-[#124f9e] rounded-md hover:bg-[#124f9e] hover:text-white transition-colors text-xs">
+                                                Zobacz
                                             </a>
-                                            <a href="{{ route('admin.permissions.edit', $permission) }}" class="text-yellow-600 hover:text-yellow-900">
+                                            <a href="{{ route('admin.permissions.edit', $permission) }}"
+                                               class="inline-flex items-center px-3 py-1.5 border border-yellow-600 text-yellow-600 rounded-md hover:bg-yellow-600 hover:text-white transition-colors text-xs">
                                                 Edytuj
                                             </a>
 
@@ -226,13 +232,14 @@
                                                     @method('DELETE')
                                                     <button type="submit"
                                                             onclick="return confirm('Czy na pewno chcesz usunąć uprawnienie {{ $permission->display_name }}?')"
-                                                            class="text-red-600 hover:text-red-900">
+                                                            class="inline-flex items-center px-3 py-1.5 border border-red-600 text-red-600 rounded-md hover:bg-red-600 hover:text-white transition-colors text-xs">
                                                         Usuń
                                                     </button>
                                                 </form>
                                             @else
-                                                <span class="text-gray-400" title="Nie można usunąć uprawnienia przypisanego do roli administratora">
-                                                    Nie można usunąć
+                                                <span class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-gray-400 rounded-md cursor-not-allowed text-xs"
+                                                      title="Nie można usunąć uprawnienia przypisanego do roli administratora">
+                                                    Zablokowane
                                                 </span>
                                             @endif
                                         </div>

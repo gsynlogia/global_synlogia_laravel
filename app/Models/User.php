@@ -411,4 +411,34 @@ class User extends Authenticatable
     {
         return $query->where('is_admin', false);
     }
+
+    /**
+     * Get user notes (history)
+     */
+    public function notes()
+    {
+        return $this->hasMany(UserNote::class)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get notes created by this user
+     */
+    public function createdNotes()
+    {
+        return $this->hasMany(UserNote::class, 'created_by');
+    }
+
+    /**
+     * Add a note to user history
+     */
+    public function addNote(string $type, string $title, string $content, array $metadata = [], ?User $createdBy = null)
+    {
+        return $this->notes()->create([
+            'type' => $type,
+            'title' => $title,
+            'content' => $content,
+            'metadata' => $metadata,
+            'created_by' => $createdBy ? $createdBy->id : auth()->id()
+        ]);
+    }
 }

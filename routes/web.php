@@ -58,10 +58,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/users/{user}/restore', [UserController::class, 'restore'])->middleware('permission:users.restore')->name('users.restore');
     Route::post('/users/{user}/block', [UserController::class, 'block'])->middleware('permission:users.block')->name('users.block');
     Route::post('/users/{user}/unblock', [UserController::class, 'unblock'])->middleware('permission:users.block')->name('users.unblock');
+    Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->middleware('permission:users.block')->name('users.toggle-status');
     Route::get('/users/blocked/list', [UserController::class, 'blocked'])->middleware('permission:users.read')->name('users.blocked');
     Route::get('/users/trash/list', [UserController::class, 'trash'])->middleware('permission:users.read')->name('users.trash');
     Route::post('/users/{user}/assign-role', [UserController::class, 'assignRole'])->middleware('permission:roles.assign')->name('users.assign-role');
     Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->middleware('permission:roles.assign')->name('users.remove-role');
+    Route::post('/users/{user}/add-note', [UserController::class, 'addNote'])->middleware('permission:users.update')->name('users.add-note');
+    Route::get('/users/{user}/history', [UserController::class, 'history'])->middleware('permission:users.read')->name('users.history');
 
     // Role management routes
     Route::get('/roles', [RoleController::class, 'index'])->middleware('permission:roles.read')->name('roles.index');

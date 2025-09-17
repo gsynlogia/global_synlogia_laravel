@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Panel Administracyjny - Global Synlogia')</title>
 
     <!-- Local Fonts -->
@@ -227,23 +228,142 @@
             <!-- Page Content -->
             <main class="flex-1 overflow-auto">
                 <div class="p-6">
-                    @if(session('success'))
-                        <div class="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if(session('error'))
-                        <div class="mb-6 bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
                     @yield('content')
                 </div>
             </main>
         </div>
     </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-4"></div>
+
+    <!-- Modal Container -->
+    <div id="modal-container"></div>
+
+    <!-- JavaScript for Modals and Toasts -->
+    <script>
+        // Toast System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            const icon = type === 'success' ?
+                '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>' :
+                '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>';
+
+            toast.className = `${bgColor} text-white px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0 flex items-center space-x-3 max-w-sm`;
+            toast.innerHTML = `
+                ${icon}
+                <span class="font-medium">${message}</span>
+                <button onclick="removeToast(this)" class="ml-4 hover:bg-white hover:bg-opacity-20 rounded p-1 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            `;
+
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => removeToast(toast), 5000);
+        }
+
+        function removeToast(toast) {
+            if (toast.tagName === 'BUTTON') {
+                toast = toast.closest('div');
+            }
+            toast.classList.add('translate-x-full', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }
+
+        // Modal System
+        function showModal(title, message, confirmText = 'Potwierdź', cancelText = 'Anuluj', onConfirm = null) {
+            const container = document.getElementById('modal-container');
+
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-50 overflow-y-auto';
+            modal.innerHTML = `
+                <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" onclick="closeModal(this)"></div>
+
+                    <div class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900">${title}</h3>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm text-gray-500">${message}</p>
+                        </div>
+
+                        <div class="flex space-x-3 justify-end">
+                            <button type="button" onclick="closeModal(this)" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                                ${cancelText}
+                            </button>
+                            <button type="button" onclick="confirmModal(this)" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 transition-colors">
+                                ${confirmText}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(modal);
+
+            // Store callback function
+            modal.confirmCallback = onConfirm;
+
+            // Animate in
+            setTimeout(() => {
+                modal.querySelector('.bg-gray-500').classList.add('opacity-100');
+                modal.querySelector('.bg-white').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(element) {
+            const modal = element.closest('.fixed');
+            modal.querySelector('.bg-gray-500').classList.remove('opacity-100');
+            modal.querySelector('.bg-white').classList.remove('scale-100');
+            setTimeout(() => modal.remove(), 200);
+        }
+
+        function confirmModal(element) {
+            const modal = element.closest('.fixed');
+            if (modal.confirmCallback) {
+                modal.confirmCallback();
+            }
+            closeModal(element);
+        }
+
+        // Global function to replace confirm() with modal
+        function confirmAction(message, onConfirm, title = 'Potwierdzenie', confirmText = 'Potwierdź') {
+            showModal(title, message, confirmText, 'Anuluj', onConfirm);
+            return false; // Always return false to prevent default form submission
+        }
+
+        // Show toasts for session messages
+        @if(session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('{{ session('success') }}', 'success');
+            });
+        @endif
+
+        @if(session('error'))
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('{{ session('error') }}', 'error');
+            });
+        @endif
+    </script>
 
     @stack('scripts')
 </body>
