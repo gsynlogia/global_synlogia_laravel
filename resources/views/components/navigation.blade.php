@@ -26,7 +26,7 @@
                     <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
                        style="animation-delay:0.4s" href="#">O firmie</a>
                     <a class="cursor-pointer text-gray-800 uppercase hover:text-[#de244b] hover-nav-item px-3 py-2 text-sm font-bold"
-                       style="animation-delay:0.5s" href="#">Kontakt</a>
+                       style="animation-delay:0.5s" href="/kontakt">Kontakt</a>
                 </div>
             </nav>
 

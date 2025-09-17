@@ -38,4 +38,7 @@
     @stack('script_tech_section')
     @stack('script_services_slider')
     @stack('script_contact_section')
+
+    <!-- Main Script - only for home page -->
+    <script src="{{ asset('js/home.js') }}" defer></script>
 @endpush

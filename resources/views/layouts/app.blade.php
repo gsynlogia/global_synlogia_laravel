@@ -39,8 +39,5 @@
 
     <!-- Component Scripts -->
     <script src="{{ asset('js/components/LucideIcons.js') }}" defer></script>
-
-    <!-- Main Script -->
-    <script src="{{ asset('js/home.js') }}" defer></script>
 </body>
 </html>
