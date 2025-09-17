@@ -13,3 +13,7 @@ Route::get('/o-firmie', function () {
 Route::get('/uslugi', function () {
     return view('pages.services');
 });
+
+Route::get('/kontakt', function () {
+    return view('pages.contact');
+});
