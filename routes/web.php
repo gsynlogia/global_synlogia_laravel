@@ -17,3 +17,7 @@ Route::get('/uslugi', function () {
 Route::get('/kontakt', function () {
     return view('pages.contact');
 });
+
+Route::get('/blog', function () {
+    return view('pages.blog');
+});
