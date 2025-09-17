@@ -37,8 +37,8 @@
             {{-- Right Image and Certifications --}}
             <div class="space-y-8">
                 <div class="bg-white p-8 rounded-2xl shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                         alt="Nowoczesne biuro Global Synlogia"
+                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                         alt="Profesjonalne środowisko pracy Global Synlogia"
                          class="w-full h-64 object-cover rounded-xl mb-6">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">Profesjonalne podejście</h3>
                     <p class="text-gray-600 leading-relaxed">
