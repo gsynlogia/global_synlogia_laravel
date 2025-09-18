@@ -68,10 +68,10 @@
     @stack('styles')
 </head>
 <body class="bg-gray-50 font-sans antialiased">
-    <div class="flex min-h-screen">
+    <div class="flex">
         <!-- Sidebar -->
-        <div class="w-64 sidebar-gradient shadow-2xl">
-            <div class="flex flex-col h-full">
+        <div class="w-64 sidebar-gradient shadow-2xl fixed h-full z-20">
+            <div class="flex flex-col h-full overflow-y-auto">
                 <!-- Logo -->
                 <div class="p-6 border-b border-white/10">
                     <div class="flex items-center">
@@ -185,14 +185,39 @@
                             </svg>
                         </a>
                     </div>
+
+                    <!-- Separator -->
+                    <div class="border-t border-white/10 mt-3 pt-3 -mx-4">
+                        <!-- Logout Button -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-4 py-2 text-white/70 hover:text-white text-sm flex items-center justify-between transition-colors">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <line x1="17" x2="22" y1="8" y2="13"/>
+                                            <line x1="22" x2="17" y1="8" y2="13"/>
+                                        </svg>
+                                    </div>
+                                    Wyloguj
+                                </div>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col ml-64">
             <!-- Top Bar -->
-            <header class="bg-white shadow-sm border-b border-gray-200">
+            <header class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-64 right-0 z-30">
                 <div class="px-6 py-4">
                     <div class="flex items-center justify-between">
                         <div>
@@ -207,27 +232,14 @@
                                 </svg>
                                 <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
                             </button>
-
-                            <!-- User Menu -->
-                            <div class="relative">
-                                <form method="POST" action="{{ route('logout') }}" class="inline">
-                                    @csrf
-                                    <button type="submit" class="flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                                        </svg>
-                                        Wyloguj
-                                    </button>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </div>
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 overflow-auto">
-                <div class="p-6">
+            <main class="flex-1 overflow-hidden" style="padding-top: 80px; height: calc(100vh - 80px);">
+                <div class="h-full overflow-y-auto p-6">
                     @yield('content')
                 </div>
             </main>

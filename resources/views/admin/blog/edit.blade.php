@@ -9,10 +9,10 @@
     @csrf
     @method('PUT')
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Main Content -->
-        <div class="lg:col-span-2 space-y-6">
-            <!-- Title and Slug -->
+    <div class="flex gap-6">
+        <!-- Main Content - Scrollable -->
+        <div class="flex-1 space-y-6">
+            <!-- Title and Excerpt -->
             <div class="bg-white rounded-xl border border-gray-100 p-6">
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Podstawowe informacje</h3>
 
@@ -25,52 +25,6 @@
                         @error('title')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Slug URL *</label>
-                        <input type="text" name="slug" value="{{ old('slug', $blogPost->slug) }}"
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2 @error('slug') border-red-500 @enderror"
-                               required>
-                        @error('slug')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                        @enderror
-
-                        <!-- Podgląd URL -->
-                        <div class="mt-2 p-2 bg-gray-50 border border-gray-200 rounded-lg">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="flex-1 min-w-0">
-                                    <span class="text-xs text-gray-600 block mb-1">Podgląd URL:</span>
-                                    @if($blogPost->isPubliclyAccessible())
-                                        <a href="{{ route('blog.show', $blogPost) }}" target="_blank"
-                                           class="text-blue-600 hover:text-blue-800 text-xs break-all">
-                                            {{ route('blog.show', $blogPost) }}
-                                        </a>
-                                    @else
-                                        <span class="text-gray-500 text-xs break-all">
-                                            {{ route('blog.show', $blogPost) }}
-                                        </span>
-                                        <p class="text-red-600 text-xs mt-1">Artykuł nie jest publicznie dostępny</p>
-                                    @endif
-                                </div>
-                                @if($blogPost->isPubliclyAccessible())
-                                    <a href="{{ route('blog.show', $blogPost) }}" target="_blank"
-                                       class="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-xs font-medium flex-shrink-0">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                        </svg>
-                                        Otwórz
-                                    </a>
-                                @else
-                                    <span class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium flex-shrink-0">
-                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                                        </svg>
-                                        Nieaktywny
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                     </div>
 
                     <div>
@@ -107,8 +61,84 @@
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="space-y-6">
+        <!-- Sidebar - Fixed -->
+        <div class="w-80 space-y-6">
+            <!-- Actions - Sticky -->
+            <div class="bg-white rounded-xl border border-gray-100 p-6 sticky top-6">
+                <div class="flex space-x-3">
+                    <button type="submit" id="save-button" class="flex-1 admin-button text-white px-4 py-2 rounded-lg font-medium">
+                        <span id="save-text">Zapisz zmiany</span>
+                        <svg id="save-loader" class="hidden animate-spin -ml-1 mr-3 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                    <a href="{{ route('admin.blog.show', $blogPost->id) }}"
+                       class="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-center hover:bg-gray-50">
+                        Anuluj
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slug URL -->
+            <div class="bg-white rounded-xl border border-gray-100">
+                <button type="button" class="w-full p-6 text-left focus:outline-none" onclick="toggleSection('slug-section')">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900">Adres URL</h3>
+                        <svg id="slug-section-icon" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </button>
+                <div id="slug-section" class="hidden px-6 pb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Slug URL *</label>
+                        <input type="text" name="slug" value="{{ old('slug', $blogPost->slug) }}"
+                               class="w-full border border-gray-300 rounded-lg px-3 py-2 @error('slug') border-red-500 @enderror"
+                               required>
+                        @error('slug')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <!-- Podgląd URL -->
+                        <div class="mt-2 p-2 bg-gray-50 border border-gray-200 rounded-lg">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex-1 min-w-0">
+                                    <span class="text-xs text-gray-600 block mb-1">Podgląd URL:</span>
+                                    @if($blogPost->isPubliclyAccessible())
+                                        <a href="{{ route('blog.show', $blogPost) }}" target="_blank"
+                                           class="text-blue-600 hover:text-blue-800 text-xs break-all">
+                                            {{ route('blog.show', $blogPost) }}
+                                        </a>
+                                    @else
+                                        <span class="text-gray-500 text-xs break-all">
+                                            {{ route('blog.show', $blogPost) }}
+                                        </span>
+                                        <p class="text-red-600 text-xs mt-1">Artykuł nie jest publicznie dostępny</p>
+                                    @endif
+                                </div>
+                                @if($blogPost->isPubliclyAccessible())
+                                    <a href="{{ route('blog.show', $blogPost) }}" target="_blank"
+                                       class="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-xs font-medium flex-shrink-0">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                        Otwórz
+                                    </a>
+                                @else
+                                    <span class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium flex-shrink-0">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                        </svg>
+                                        Nieaktywny
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Publishing Options -->
             <div class="bg-white rounded-xl border border-gray-100 p-6">
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Publikacja</h3>
@@ -150,105 +180,105 @@
             </div>
 
             <!-- Featured Image -->
-            <div class="bg-white rounded-xl border border-gray-100 p-6">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Główne zdjęcie</h3>
-
-                @if($blogPost->featured_image)
-                    <div class="mb-4">
-                        <p class="text-sm text-gray-600 mb-2">Aktualne zdjęcie:</p>
-                        <img src="{{ $blogPost->featured_image_url }}" alt=""
-                             class="w-full h-32 object-cover rounded-lg mb-2">
-                        <div class="flex items-center">
-                            <input type="checkbox" name="remove_featured_image" id="remove_featured_image" value="1"
-                                   class="rounded border-gray-300 text-red-600">
-                            <label for="remove_featured_image" class="ml-2 text-sm text-red-600">Usuń obecne zdjęcie</label>
+            <div class="bg-white rounded-xl border border-gray-100">
+                <button type="button" class="w-full p-6 text-left focus:outline-none" onclick="toggleSection('image-section')">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900">Główne zdjęcie</h3>
+                        <svg id="image-section-icon" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </button>
+                <div id="image-section" class="hidden px-6 pb-6">
+                    @if($blogPost->featured_image)
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-600 mb-2">Aktualne zdjęcie:</p>
+                            <img src="{{ $blogPost->featured_image_url }}" alt=""
+                                 class="w-full h-32 object-cover rounded-lg mb-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" name="remove_featured_image" id="remove_featured_image" value="1"
+                                       class="rounded border-gray-300 text-red-600">
+                                <label for="remove_featured_image" class="ml-2 text-sm text-red-600">Usuń obecne zdjęcie</label>
+                            </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Upload nowego pliku</label>
-                        <input type="file" name="featured_image" accept="image/*"
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                        <p class="text-xs text-gray-500 mt-1">Max 2MB, formaty: JPG, PNG, GIF</p>
-                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Upload nowego pliku</label>
+                            <input type="file" name="featured_image" accept="image/*"
+                                   class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                            <p class="text-xs text-gray-500 mt-1">Max 2MB, formaty: JPG, PNG, GIF</p>
+                        </div>
 
-                    <div class="text-center text-gray-500">LUB</div>
+                        <div class="text-center text-gray-500">LUB</div>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">URL zewnętrznego zdjęcia</label>
-                        <input type="url" name="featured_image_url"
-                               value="{{ old('featured_image_url', $blogPost->featured_image_is_url ? $blogPost->featured_image : '') }}"
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2"
-                               placeholder="https://example.com/image.jpg">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">URL zewnętrznego zdjęcia</label>
+                            <input type="url" name="featured_image_url"
+                                   value="{{ old('featured_image_url', $blogPost->featured_image_is_url ? $blogPost->featured_image : '') }}"
+                                   class="w-full border border-gray-300 rounded-lg px-3 py-2"
+                                   placeholder="https://example.com/image.jpg">
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Password Protection -->
-            <div class="bg-white rounded-xl border border-gray-100 p-6">
-                <h3 class="text-lg font-bold text-gray-900 mb-4">Ochrona hasłem</h3>
+            <div class="bg-white rounded-xl border border-gray-100">
+                <button type="button" class="w-full p-6 text-left focus:outline-none" onclick="toggleSection('password-section')">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold text-gray-900">Ochrona hasłem</h3>
+                        <svg id="password-section-icon" class="w-5 h-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </button>
+                <div id="password-section" class="hidden px-6 pb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hasło dostępu</label>
 
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Hasło dostępu</label>
-
-                    @if($blogPost->is_password_protected)
-                        <!-- Show current password in editable state -->
-                        <div class="mb-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="flex-1 min-w-0">
-                                    <span class="text-sm font-medium text-yellow-800 block mb-1">🔒 Aktualnie chroniony hasłem:</span>
-                                    <code id="current-password" class="px-2 py-1 bg-yellow-100 text-yellow-900 rounded font-mono text-sm break-all word-wrap">●●●●●●●●</code>
-                                </div>
-                                <button type="button" onclick="togglePasswordVisibility()" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium flex-shrink-0">
-                                    <span id="toggle-text">Pokaż</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <script>
-                        function togglePasswordVisibility() {
-                            const passwordSpan = document.getElementById('current-password');
-                            const toggleText = document.getElementById('toggle-text');
-
-                            if (passwordSpan.textContent === '●●●●●●●●') {
-                                passwordSpan.textContent = '{{ $blogPost->password }}';
-                                toggleText.textContent = 'Ukryj';
-                            } else {
-                                passwordSpan.textContent = '●●●●●●●●';
-                                toggleText.textContent = 'Pokaż';
-                            }
-                        }
-                        </script>
-                    @endif
-
-                    <input type="password" name="password"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2"
-                           placeholder="{{ $blogPost->is_password_protected ? 'Wpisz nowe hasło aby zmienić (lub zostaw puste)' : 'Pozostaw puste dla dostępu publicznego' }}">
-                    <p class="text-xs text-gray-500 mt-1">
                         @if($blogPost->is_password_protected)
-                            Pozostaw puste aby zachować obecne hasło, lub wpisz nowe aby zmienić
-                        @else
-                            Minimum 6 znaków - wpisz hasło aby chronić artykuł
+                            <div class="mb-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div class="flex-1 min-w-0">
+                                        <span class="text-sm font-medium text-yellow-800 block mb-1">🔒 Aktualnie chroniony hasłem:</span>
+                                        <code id="current-password" class="px-2 py-1 bg-yellow-100 text-yellow-900 rounded font-mono text-sm break-all word-wrap">●●●●●●●●</code>
+                                    </div>
+                                </div>
+                            </div>
                         @endif
-                    </p>
+
+                        <input type="password" name="password"
+                               class="w-full border border-gray-300 rounded-lg px-3 py-2"
+                               placeholder="Wpisz hasło lub zostaw puste">
+                        <p class="text-xs text-gray-500 mt-1">
+                            @if($blogPost->is_password_protected)
+                                Pozostaw puste aby zachować obecne hasło, lub wpisz nowe aby zmienić
+                            @else
+                                Minimum 6 znaków - wpisz hasło aby chronić artykuł
+                            @endif
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Actions -->
-            <div class="bg-white rounded-xl border border-gray-100 p-6">
-                <div class="flex space-x-3">
-                    <button type="submit" class="flex-1 admin-button text-white px-4 py-2 rounded-lg font-medium">
-                        Zapisz zmiany
-                    </button>
-                    <a href="{{ route('admin.blog.show', $blogPost->id) }}"
-                       class="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-center hover:bg-gray-50">
-                        Anuluj
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 </form>
+
+<script>
+function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const icon = document.getElementById(sectionId + '-icon');
+
+    if (section.classList.contains('hidden')) {
+        section.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        section.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+</script>
 @endsection
