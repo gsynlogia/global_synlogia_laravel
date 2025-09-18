@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\MagicLinkController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\BlogController as PublicBlogController;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -87,8 +89,23 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/permissions/{permission}', [PermissionController::class, 'destroy'])->middleware('permission:permissions.delete')->name('permissions.destroy');
     Route::post('/permissions/crud', [PermissionController::class, 'createCrudPermissions'])->middleware('permission:permissions.create')->name('permissions.create-crud');
 
+    // Blog management routes - explicite routing dla ID
+    Route::get('/blog', [BlogController::class, 'index'])->name('admin.blog.index');
+    Route::get('/blog/create', [BlogController::class, 'create'])->name('admin.blog.create');
+    Route::post('/blog', [BlogController::class, 'store'])->name('admin.blog.store');
+    Route::get('/blog/{id}', [BlogController::class, 'show'])->where('id', '[0-9]+')->name('admin.blog.show');
+    Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->where('id', '[0-9]+')->name('admin.blog.edit');
+    Route::put('/blog/{id}', [BlogController::class, 'update'])->where('id', '[0-9]+')->name('admin.blog.update');
+    Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.blog.destroy');
+    Route::patch('/blog/{id}/restore', [BlogController::class, 'restore'])->name('admin.blog.restore');
+
     // API routes for AJAX requests
     Route::get('/api/users', [UserController::class, 'apiIndex'])->name('api.users');
     Route::get('/api/permissions/grouped', [PermissionController::class, 'apiGrouped'])->name('api.permissions.grouped');
     Route::get('/api/permissions/by-group', [PermissionController::class, 'apiByGroup'])->name('api.permissions.by-group');
 });
+
+// Public blog routes
+Route::get('/blog', [PublicBlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{blogPost}', [PublicBlogController::class, 'show'])->name('blog.show');
+Route::post('/blog/{blogPost}/password', [PublicBlogController::class, 'checkPassword'])->name('blog.password');
