@@ -463,16 +463,12 @@ class User extends Authenticatable
      */
     public function addNote(string $type, string $title, string $content, array $metadata = [], ?User $createdBy = null)
     {
-        // Jeśli nie podano created_by i auth() jest null (np. podczas weryfikacji magic link)
-        // to używamy ID tego samego użytkownika
-        $createdById = $createdBy ? $createdBy->id : (auth()->id() ?? $this->id);
-
         return $this->notes()->create([
             'type' => $type,
             'title' => $title,
             'content' => $content,
             'metadata' => $metadata,
-            'created_by' => $createdById
+            'created_by' => $createdBy ? $createdBy->id : auth()->id()
         ]);
     }
 }
