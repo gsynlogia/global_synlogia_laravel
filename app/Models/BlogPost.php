@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -163,12 +162,12 @@ class BlogPost extends Model
     }
 
     /**
-     * Hashowanie hasła do artykułu
+     * Ustawienie hasła do artykułu (plain text dla dostępu do artykułów)
      */
     public function setPasswordAttribute($value)
     {
         if (!empty($value)) {
-            $this->attributes['password'] = Hash::make($value);
+            $this->attributes['password'] = $value; // Przechowywanie jako plain text
             $this->attributes['is_password_protected'] = true;
         } else {
             $this->attributes['password'] = null;
@@ -177,7 +176,7 @@ class BlogPost extends Model
     }
 
     /**
-     * Sprawdzenie czy hasło jest poprawne
+     * Sprawdzenie czy hasło jest poprawne (porównanie plain text)
      */
     public function checkPassword(string $password): bool
     {
@@ -185,7 +184,7 @@ class BlogPost extends Model
             return true;
         }
 
-        return Hash::check($password, $this->password);
+        return $password === $this->password; // Porównanie plain text
     }
 
     /**

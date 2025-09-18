@@ -35,6 +35,42 @@
                         @error('slug')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
+
+                        <!-- Podgląd URL -->
+                        <div class="mt-2 p-2 bg-gray-50 border border-gray-200 rounded-lg">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex-1 min-w-0">
+                                    <span class="text-xs text-gray-600 block mb-1">Podgląd URL:</span>
+                                    @if($blogPost->isPubliclyAccessible())
+                                        <a href="{{ route('blog.show', $blogPost) }}" target="_blank"
+                                           class="text-blue-600 hover:text-blue-800 text-xs break-all">
+                                            {{ route('blog.show', $blogPost) }}
+                                        </a>
+                                    @else
+                                        <span class="text-gray-500 text-xs break-all">
+                                            {{ route('blog.show', $blogPost) }}
+                                        </span>
+                                        <p class="text-red-600 text-xs mt-1">Artykuł nie jest publicznie dostępny</p>
+                                    @endif
+                                </div>
+                                @if($blogPost->isPubliclyAccessible())
+                                    <a href="{{ route('blog.show', $blogPost) }}" target="_blank"
+                                       class="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 text-xs font-medium flex-shrink-0">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                        Otwórz
+                                    </a>
+                                @else
+                                    <span class="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium flex-shrink-0">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                        </svg>
+                                        Nieaktywny
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
                     <div>
@@ -150,13 +186,47 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Hasło dostępu</label>
+
+                    @if($blogPost->is_password_protected)
+                        <!-- Show current password in editable state -->
+                        <div class="mb-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1 min-w-0">
+                                    <span class="text-sm font-medium text-yellow-800 block mb-1">🔒 Aktualnie chroniony hasłem:</span>
+                                    <code id="current-password" class="px-2 py-1 bg-yellow-100 text-yellow-900 rounded font-mono text-sm break-all word-wrap">●●●●●●●●</code>
+                                </div>
+                                <button type="button" onclick="togglePasswordVisibility()" class="text-yellow-600 hover:text-yellow-800 text-sm font-medium flex-shrink-0">
+                                    <span id="toggle-text">Pokaż</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <script>
+                        function togglePasswordVisibility() {
+                            const passwordSpan = document.getElementById('current-password');
+                            const toggleText = document.getElementById('toggle-text');
+
+                            if (passwordSpan.textContent === '●●●●●●●●') {
+                                passwordSpan.textContent = '{{ $blogPost->password }}';
+                                toggleText.textContent = 'Ukryj';
+                            } else {
+                                passwordSpan.textContent = '●●●●●●●●';
+                                toggleText.textContent = 'Pokaż';
+                            }
+                        }
+                        </script>
+                    @endif
+
                     <input type="password" name="password"
                            class="w-full border border-gray-300 rounded-lg px-3 py-2"
-                           placeholder="{{ $blogPost->is_password_protected ? 'Pozostaw puste aby nie zmieniać hasła' : 'Pozostaw puste dla dostępu publicznego' }}">
-                    <p class="text-xs text-gray-500 mt-1">Minimum 6 znaków</p>
-                    @if($blogPost->is_password_protected)
-                        <p class="text-xs text-yellow-600 mt-1">⚠️ Artykuł jest obecnie chroniony hasłem</p>
-                    @endif
+                           placeholder="{{ $blogPost->is_password_protected ? 'Wpisz nowe hasło aby zmienić (lub zostaw puste)' : 'Pozostaw puste dla dostępu publicznego' }}">
+                    <p class="text-xs text-gray-500 mt-1">
+                        @if($blogPost->is_password_protected)
+                            Pozostaw puste aby zachować obecne hasło, lub wpisz nowe aby zmienić
+                        @else
+                            Minimum 6 znaków - wpisz hasło aby chronić artykuł
+                        @endif
+                    </p>
                 </div>
             </div>
 

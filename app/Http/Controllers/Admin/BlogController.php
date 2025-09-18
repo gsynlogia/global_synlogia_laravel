@@ -31,15 +31,52 @@ class BlogController extends Controller
             $query->where('author_id', $request->author);
         }
 
-        // Wyszukiwanie po tytule
-        if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+        // Filtrowanie chronionych hasłem
+        if ($request->filled('password_protected')) {
+            if ($request->password_protected === 'yes') {
+                $query->where('is_password_protected', true);
+            } elseif ($request->password_protected === 'no') {
+                $query->where('is_password_protected', false);
+            }
         }
 
-        $blogPosts = $query->latest()->paginate(15);
-        $statuses = BlogPost::getStatuses();
+        // Filtrowanie po dacie publikacji
+        if ($request->filled('date_from')) {
+            $query->where('published_at', '>=', $request->date_from);
+        }
+        if ($request->filled('date_to')) {
+            $query->where('published_at', '<=', $request->date_to . ' 23:59:59');
+        }
 
-        return view('admin.blog.index', compact('blogPosts', 'statuses'));
+        // Wyszukiwanie po tytule i treści
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('content', 'like', '%' . $request->search . '%')
+                  ->orWhere('excerpt', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Sortowanie
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortOrder = $request->get('sort_order', 'desc');
+
+        $allowedSorts = ['created_at', 'published_at', 'title', 'views_count', 'status'];
+        if (in_array($sortBy, $allowedSorts)) {
+            $query->orderBy($sortBy, $sortOrder);
+        } else {
+            $query->latest();
+        }
+
+        // Paginacja - 20 na stronę
+        $blogPosts = $query->paginate(20);
+        $blogPosts->appends(request()->query());
+
+        // Dane dla filtrów
+        $statuses = BlogPost::getStatuses();
+        $authors = \App\Models\User::where('is_admin', true)->get();
+
+        return view('admin.blog.index', compact('blogPosts', 'statuses', 'authors'));
     }
 
     /**
