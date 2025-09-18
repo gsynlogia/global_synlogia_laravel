@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\BlogController as PublicBlogController;
 
 Route::get('/', function () {
@@ -99,11 +100,36 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->where('id', '[0-9]+')->name('blog.destroy');
     Route::patch('/blog/{id}/restore', [BlogController::class, 'restore'])->name('blog.restore');
 
+    // Media management routes
+    Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+    Route::post('/media', [MediaController::class, 'store'])->name('media.store');
+    Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
+    Route::get('/media/{media}/edit', [MediaController::class, 'edit'])->name('media.edit');
+    Route::put('/media/{media}', [MediaController::class, 'update'])->name('media.update');
+    Route::delete('/media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
+    Route::get('/media/{media}/download', [MediaController::class, 'download'])->name('media.download');
+
+    // Media access control routes
+    Route::post('/media/{media}/block', [MediaController::class, 'block'])->name('media.block');
+    Route::post('/media/{media}/unblock', [MediaController::class, 'unblock'])->name('media.unblock');
+    Route::patch('/media/{media}/access', [MediaController::class, 'updateAccess'])->name('media.update-access');
+    Route::post('/media/{media}/assign-user', [MediaController::class, 'assignUser'])->name('media.assign-user');
+    Route::delete('/media/{media}/remove-user', [MediaController::class, 'removeUser'])->name('media.remove-user');
+    Route::post('/media/{media}/generate-link', [MediaController::class, 'generateAccessLink'])->name('media.generate-link');
+    Route::delete('/media/{media}/revoke-link', [MediaController::class, 'revokeAccessLink'])->name('media.revoke-link');
+
+    // API routes
+    Route::get('/api/media/folder-contents', [MediaController::class, 'getFolderContents'])->name('api.media.folder-contents');
+
     // API routes for AJAX requests
     Route::get('/api/users', [UserController::class, 'apiIndex'])->name('api.users');
     Route::get('/api/permissions/grouped', [PermissionController::class, 'apiGrouped'])->name('api.permissions.grouped');
     Route::get('/api/permissions/by-group', [PermissionController::class, 'apiByGroup'])->name('api.permissions.by-group');
 });
+
+// Public media routes
+Route::get('/media/{media}', [\App\Http\Controllers\Admin\MediaController::class, 'publicShow'])->name('media.public.show');
+Route::get('/media/{media}/download', [\App\Http\Controllers\Admin\MediaController::class, 'publicDownload'])->name('media.public.download');
 
 // Public blog routes
 Route::get('/blog', [PublicBlogController::class, 'index'])->name('blog.index');
