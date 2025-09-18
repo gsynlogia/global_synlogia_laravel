@@ -5,7 +5,7 @@
 @section('page-description', 'Edytowanie wpisu blogowego')
 
 @section('content')
-<form method="POST" action="{{ route('admin.admin.blog.update', $blogPost->id) }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.blog.update', $blogPost->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -90,10 +90,16 @@
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Treść artykułu</h3>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Treść *</label>
-                    <textarea name="content" rows="15"
-                              class="w-full border border-gray-300 rounded-lg px-3 py-2 @error('content') border-red-500 @enderror"
-                              required>{{ old('content', $blogPost->content) }}</textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Treść *</label>
+
+                    <x-synlogia-editor
+                        name="content"
+                        :value="old('content', $blogPost->content)"
+                        placeholder="Napisz treść artykułu..."
+                        :height="400"
+                        class="@error('content') border-red-500 @enderror"
+                    />
+
                     @error('content')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
@@ -236,7 +242,7 @@
                     <button type="submit" class="flex-1 admin-button text-white px-4 py-2 rounded-lg font-medium">
                         Zapisz zmiany
                     </button>
-                    <a href="{{ route('admin.admin.blog.show', $blogPost->id) }}"
+                    <a href="{{ route('admin.blog.show', $blogPost->id) }}"
                        class="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-center hover:bg-gray-50">
                         Anuluj
                     </a>

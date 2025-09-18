@@ -90,14 +90,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/permissions/crud', [PermissionController::class, 'createCrudPermissions'])->middleware('permission:permissions.create')->name('permissions.create-crud');
 
     // Blog management routes - explicite routing dla ID
-    Route::get('/blog', [BlogController::class, 'index'])->name('admin.blog.index');
-    Route::get('/blog/create', [BlogController::class, 'create'])->name('admin.blog.create');
-    Route::post('/blog', [BlogController::class, 'store'])->name('admin.blog.store');
-    Route::get('/blog/{id}', [BlogController::class, 'show'])->where('id', '[0-9]+')->name('admin.blog.show');
-    Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->where('id', '[0-9]+')->name('admin.blog.edit');
-    Route::put('/blog/{id}', [BlogController::class, 'update'])->where('id', '[0-9]+')->name('admin.blog.update');
-    Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->where('id', '[0-9]+')->name('admin.blog.destroy');
-    Route::patch('/blog/{id}/restore', [BlogController::class, 'restore'])->name('admin.blog.restore');
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/blog', [BlogController::class, 'store'])->name('blog.store');
+    Route::get('/blog/{id}', [BlogController::class, 'show'])->where('id', '[0-9]+')->name('blog.show');
+    Route::get('/blog/{id}/edit', [BlogController::class, 'edit'])->where('id', '[0-9]+')->name('blog.edit');
+    Route::put('/blog/{id}', [BlogController::class, 'update'])->where('id', '[0-9]+')->name('blog.update');
+    Route::delete('/blog/{id}', [BlogController::class, 'destroy'])->where('id', '[0-9]+')->name('blog.destroy');
+    Route::patch('/blog/{id}/restore', [BlogController::class, 'restore'])->name('blog.restore');
 
     // API routes for AJAX requests
     Route::get('/api/users', [UserController::class, 'apiIndex'])->name('api.users');

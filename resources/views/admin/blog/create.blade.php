@@ -5,7 +5,7 @@
 @section('page-description', 'Tworzenie nowego wpisu blogowego')
 
 @section('content')
-<form method="POST" action="{{ route('admin.admin.blog.store') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.blog.store') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -53,10 +53,16 @@
                 <h3 class="text-lg font-bold text-gray-900 mb-4">Treść artykułu</h3>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Treść *</label>
-                    <textarea name="content" rows="15"
-                              class="w-full border border-gray-300 rounded-lg px-3 py-2 @error('content') border-red-500 @enderror"
-                              required>{{ old('content') }}</textarea>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Treść *</label>
+
+                    <x-synlogia-editor
+                        name="content"
+                        :value="old('content')"
+                        placeholder="Napisz treść artykułu..."
+                        :height="400"
+                        class="@error('content') border-red-500 @enderror"
+                    />
+
                     @error('content')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
@@ -146,7 +152,7 @@
                     <button type="submit" class="flex-1 admin-button text-white px-4 py-2 rounded-lg font-medium">
                         Zapisz artykuł
                     </button>
-                    <a href="{{ route('admin.admin.blog.index') }}"
+                    <a href="{{ route('admin.blog.index') }}"
                        class="flex-1 border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-center hover:bg-gray-50">
                         Anuluj
                     </a>

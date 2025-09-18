@@ -129,7 +129,7 @@ class BlogController extends Controller
 
         $blogPost = BlogPost::create($validated);
 
-        return redirect()->route('admin.admin.blog.show', $blogPost)
+        return redirect()->route('admin.blog.show', $blogPost->id)
                         ->with('success', 'Artykuł został utworzony pomyślnie!');
     }
 
@@ -196,7 +196,7 @@ class BlogController extends Controller
 
         $blogPost->update($validated);
 
-        return redirect()->route('admin.admin.blog.show', $blogPost)
+        return redirect()->back()
                         ->with('success', 'Artykuł został zaktualizowany pomyślnie!');
     }
 
@@ -208,7 +208,7 @@ class BlogController extends Controller
         $blogPost = BlogPost::findOrFail($id);
         $blogPost->delete();
 
-        return redirect()->route('admin.admin.blog.index')
+        return redirect()->route('admin.blog.index')
                         ->with('success', 'Artykuł został przeniesiony do kosza.');
     }
 
@@ -220,7 +220,7 @@ class BlogController extends Controller
         $blogPost = BlogPost::withTrashed()->findOrFail($id);
         $blogPost->restore();
 
-        return redirect()->route('admin.admin.blog.index')
+        return redirect()->route('admin.blog.index')
                         ->with('success', 'Artykuł został przywrócony.');
     }
 

@@ -8,7 +8,7 @@
 <div class="bg-white rounded-xl border border-gray-100 p-6">
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-lg font-bold text-gray-900">Artykuły blogowe</h3>
-        <a href="{{ route('admin.admin.blog.create') }}" class="admin-button text-white px-4 py-2 rounded-lg font-medium">
+        <a href="{{ route('admin.blog.create') }}" class="admin-button text-white px-4 py-2 rounded-lg font-medium">
             <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
             </svg>
@@ -128,7 +128,7 @@
                     </svg>
                     Filtruj
                 </button>
-                <a href="{{ route('admin.admin.blog.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium">
+                <a href="{{ route('admin.blog.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg font-medium">
                     <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                     </svg>
@@ -204,16 +204,16 @@
                         </td>
                         <td class="py-3 px-4">
                             <div class="flex space-x-2">
-                                <a href="{{ route('admin.admin.blog.show', $post->id) }}"
+                                <a href="{{ route('admin.blog.show', $post->id) }}"
                                    class="text-blue-600 hover:text-blue-800">
                                     Podgląd
                                 </a>
-                                <a href="{{ route('admin.admin.blog.edit', $post->id) }}"
+                                <a href="{{ route('admin.blog.edit', $post->id) }}"
                                    class="text-green-600 hover:text-green-800">
                                     Edytuj
                                 </a>
                                 @if($post->trashed())
-                                    <form method="POST" action="{{ route('admin.admin.blog.restore', $post->id) }}" class="inline">
+                                    <form method="POST" action="{{ route('admin.blog.restore', $post->id) }}" class="inline">
                                         @csrf
                                         @method('PATCH')
                                         <button type="submit" class="text-yellow-600 hover:text-yellow-800">
@@ -221,7 +221,7 @@
                                         </button>
                                     </form>
                                 @else
-                                    <form method="POST" action="{{ route('admin.admin.blog.destroy', $post->id) }}" class="inline">
+                                    <form method="POST" action="{{ route('admin.blog.destroy', $post->id) }}" class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800"
